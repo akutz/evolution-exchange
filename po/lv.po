@@ -4,449 +4,1812 @@
 #
 # Mikus <mikus.saulitis@gmail.com>, 2006.
 # Raivis Dejus <orvils@gmail.com>, 2006.
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 11:37+0300\n"
-"PO-Revision-Date: 2006-08-25 11:38+0300\n"
-"Last-Translator: Raivis Dejus <orvils@gmail.com>\n"
-"Language-Team: Latvian <locale@laka.lv>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product"
+"=evolution-exchange&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-04-03 23:19+0000\n"
+"PO-Revision-Date: 2012-05-13 22:57+0300\n"
+"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Generator: Lokalize 1.4\n"
+"Language: lv\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
-msgid "Searching..."
-msgstr "Meklēju..."
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Norāda laika intervālu, kādā atsvaidzināt GAL kešu."
 
-#: ../addressbook/e-book-backend-gal.c:267
-msgid "Reconnecting to LDAP server..."
-msgstr "Atkārtoti savienojos ar LDAP serveri..."
-
-#: ../addressbook/e-book-backend-gal.c:1363
-msgid "Receiving LDAP search results..."
-msgstr "Saņemu LDAP meklēšanas rezultātus..."
-
-#: ../addressbook/e-book-backend-gal.c:1522
-msgid "Error performing search"
-msgstr "Kļūda izpildot meklēšanu"
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
-#, c-format
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
-"Unable to schedule resource '%s' for recurring meetings.\n"
-"You must book each meeting separately."
+"This key specifies the number of days' interval between GAL cache refreshes. "
+"Set this value to zero if you don't want to update GAL and use the current "
+"cache forever. This will work only if you have enabled offline caching for "
+"GAL."
 msgstr ""
-"Nevaru ieplānot atkārtotas tikšanas resursu '%s'. Jums vajag ieplānot katru "
-"tikšanos atsevišķi."
+"Šī atslēga norāda dienu intervālu starp GAL keša atsvaidzināšanu. Iestatiet "
+"šo vērtību kā nulli, ja vēlaties neatjaunināt GAL un izmantot kešu mūžīgi. "
+"Tas darbosies tikai tad, ja ir aktivēta GAL nesaistes pieglabāšana."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../addressbook/e-book-backend-exchange.c:139
+#, c-format
+msgid "Operation failed with status %d"
+msgstr "Darbība neizdevās ar statusu %d"
+
+#: ../addressbook/e-book-backend-exchange.c:1739
+msgid "The backend does not support bulk additions"
+msgstr "Aizmugure neatbalsta masveida pievienošanu"
+
+#: ../addressbook/e-book-backend-exchange.c:1836
+msgid "The backend does not support bulk modifications"
+msgstr "Aizmugure neatbalsta masveida izmaiņas"
+
+#: ../addressbook/e-book-backend-exchange.c:1857
+#: ../addressbook/e-book-backend-exchange.c:2523
+msgid "Cancelled"
+msgstr "Atcelts"
+
+#: ../addressbook/e-book-backend-exchange.c:2370
+#: ../addressbook/e-book-backend-gal.c:2047
+msgid "Searching..."
+msgstr "Meklē..."
+
+#: ../addressbook/e-book-backend-gal.c:358
+#: ../addressbook/e-book-backend-gal.c:381
+msgid "Reconnecting to LDAP server..."
+msgstr "Atkārtoti savienojas ar LDAP serveri..."
+
+#: ../addressbook/e-book-backend-gal.c:1793
+msgid "Receiving LDAP search results..."
+msgstr "Saņem LDAP meklēšanas rezultātus..."
+
+#: ../addressbook/e-book-backend-gal.c:2078
+msgid "Error performing search"
+msgstr "Kļūda, veicot meklēšanu"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2254
+#: ../calendar/e-cal-backend-exchange-calendar.c:2328
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr "Resurss '%s' ir aizņemts izvēlētā laika periodā."
+msgstr "Resurss “%s” ir aizņemts izvēlētajā laika periodā."
 
-#: ../camel/camel-exchange-folder.c:222
-msgid "You cannot expunge in offline mode."
-msgstr "Jūs nevarat izstrīpot nepieslēgtā režīmā."
-
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
 msgstr "Nav temata"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:156
+#, c-format
 msgid "This message is not available in offline mode."
-msgstr "Tas ziņojums nav pieejams nepislēgtā režīmā."
+msgstr "Šī vēstule nav pieejama nesaistes režīmā."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:514
+#: ../camel/camel-exchange-folder.c:516
+#, c-format
+msgid "You cannot expunge in offline mode."
+msgstr "Jūs nevarat izsvītrot nesaistes režīmā."
+
+#: ../camel/camel-exchange-folder.c:652 ../camel/camel-exchange-utils.c:609
+#: ../camel/camel-exchange-utils.c:648
+#: ../camel/camel-exchange-folder.c:654
+msgid "Could not get new messages"
+msgstr "Nevar saņemt jaunas vēstules"
+
+#: ../camel/camel-exchange-folder.c:696
+#: ../camel/camel-exchange-folder.c:698
 msgid "Moving messages"
-msgstr "Ziņojuma pārvietošana"
+msgstr "Pārvieto vēstules"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:696
+#: ../camel/camel-exchange-folder.c:698
 msgid "Copying messages"
 msgstr "Ziņojuma pārkopēšana"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1108
+#: ../camel/camel-exchange-folder.c:1110
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nevaru izveidot direktoriju %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1117
+#: ../camel/camel-exchange-folder.c:1119
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nevaru ielādēt kopsavilkumu priekš %s"
 
-#: ../camel/camel-exchange-folder.c:1032
-#, c-format
-msgid "Could not create cache for %s"
-msgstr "Nevaru izveidot kešatmiņu priekš %s"
+#: ../camel/camel-exchange-folder.c:1124
+#: ../camel/camel-exchange-folder.c:1126
+#, c-format, c-format
+#| msgid "Could not create cache for %s"
+msgid "Could not create cache for %s: "
+msgstr "Neizdevās izveidot %s kešu: "
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1135
+#: ../camel/camel-exchange-folder.c:1137
 #, c-format
 msgid "Could not create journal for %s"
-msgstr "Nevaru izveidot žurnālu priekš %s"
+msgstr "Neizdevās izveidot %s žurnālu"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1185
+#: ../camel/camel-exchange-folder.c:1187
 msgid "Scanning for changed messages"
-msgstr "Meklēju izmainītus ziņojumus"
+msgstr "Meklē izmainītās vēstules"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1213
+#: ../camel/camel-exchange-folder.c:1215
 msgid "Fetching summary information for new messages"
-msgstr "Ienesu kopsavilkumu priekš jauniem ziņojumiem"
+msgstr "Saņem kopsavilkumu par jaunajām vēstulēm"
 
-#: ../camel/camel-exchange-journal.c:339
-msgid "No folder name found\n"
-msgstr "Nav atrasts mapes nosaukums\n"
+#: ../camel/camel-exchange-journal.c:149
+#, c-format, c-format
+#| msgid "No folder name found\n"
+msgid "No folder name found"
+msgstr "Nav atrasts mapes nosaukums"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3339
+#: ../camel/camel-exchange-utils.c:3403 ../camel/camel-exchange-utils.c:3521
+#: ../camel/camel-exchange-utils.c:3552 ../camel/camel-exchange-utils.c:3604
+#: ../camel/camel-exchange-utils.c:3625
+#, c-format
 msgid "Folder doesn't exist"
 msgstr "Mape neeksistē"
 
-#: ../camel/camel-exchange-journal.c:436
-msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Nevaru pievienot ziņojumu nepieslēgtā režīmā: kešatmiņa nav pieejama"
-
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:424
 #, c-format
-msgid "Cannot append message in offline mode: %s"
-msgstr "Nevaru pievienot ziņojumu nepieslēgtā režīmā: %s"
+msgid "Cannot append message in offline mode: cache unavailable"
+msgstr "Nevar pievienot vēstuli nesaistes režīmā — kešatmiņa nav pieejama"
+
+#: ../camel/camel-exchange-journal.c:445
+#| msgid "Cannot append message in offline mode: %s"
+msgid "Cannot append message in offline mode: "
+msgstr "Nevar pievienot vēstuli nesaistes režīmā:"
+
+#: ../camel/camel-exchange-provider.c:52
+#| msgid "Plaintext Password"
+msgid "Secure or Plaintext Password"
+msgstr "Droša vai vienkārša teksta parole"
+
+#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:144
+#: ../eplugin/exchange-account-setup.c:69
+msgid "Plaintext Password"
+msgstr "Atklāta teksta parole"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: ../camel/camel-exchange-provider.c:54
+#: ../camel/camel-exchange-provider.c:133
+#: ../eplugin/exchange-account-setup.c:58
+msgid "Secure Password"
+msgstr "Droša parole"
+
+#: ../camel/camel-exchange-provider.c:60
+msgid "Checking for New Mail"
+msgstr "Pārbauda jaunos pasta sūtījums"
+
+#: ../camel/camel-exchange-provider.c:62
+#| msgid "Only check for Junk messag_es in the Inbox folder"
+msgid "C_heck for new messages in all folders"
+msgstr "_Pārbaudīt visās mapēs, vai nav jaunu vēstuļu"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:70
 msgid "Windows User_name:"
-msgstr "Windows Lietotāja vārds:"
+msgstr "Windows _lietotājvārds:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
-msgid "Global Address List / Active Directory"
-msgstr "Globālo adrešu saraksts / Aktīva direktorija"
+#: ../camel/camel-exchange-provider.c:75
+#| msgid "Global Address List / Active Directory"
+msgid "Global Address List/Active Directory"
+msgstr "Globāls adrešu saraksts / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:79
 msgid "_Global Catalog server name:"
-msgstr "_Globāls Katalogs servera nosaukums:"
+msgstr "_Globālā kataloga servera nosaukums:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:81
 #, c-format
 msgid "_Limit number of GAL responses: %s"
-msgstr "GAL atbilžu ierobežots skaits: %s"
+msgstr "Ierobežot GA_L atbilžu skaitu — %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:83
+msgid "Authentication _Type:"
+msgstr "Autentifikācijas _tips:"
+
+#: ../camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr "Ļaut _pārlūkot GAL, līdz ir sasniegts lejupielādes limits"
+
+#: ../camel/camel-exchange-provider.c:90
+msgid "_Expand groups of contacts in GAL to contact lists"
+msgstr "_Izvērst GAL kontaktu grupas līdz kontaktu sarakstiem"
+
+#: ../camel/camel-exchange-provider.c:93
 msgid "Options"
 msgstr "Opcijas"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:95
 #, c-format
 msgid "_Password Expiry Warning period: %s"
-msgstr "_Paroles termiņa izbeigšanās brīdinājums: %s"
+msgstr "_Paroles termiņa izbeigšanās brīdinājums — %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:97
 msgid "Automatically synchroni_ze account locally"
-msgstr "Automātiski sinhronizē kontu lokāli"
+msgstr "Automātiski sinhroni_zēt kontu lokāli"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:100
 msgid "_Apply filters to new messages in Inbox on this server"
-msgstr "_Pielietot filtrus jaunajiem ziņojumiem Iesūtnē uz šā servera"
+msgstr "_Attiecināt filtrus uz jaunajām vēstulēm iesūtnē šajā serverī"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:102
 msgid "Check new messages for _Junk contents"
-msgstr "Pārbaudiet jaunus ziņojumus Liekpastā"
+msgstr "Pārbaudīt, vai jaunās vēstules nav _mēstules"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:104
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr "Pārbaudiet liekpasta ziņojumus Iesūtnē"
+msgstr "Pārbaudīt mēstul_es tikai iesūtnes mapē"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:114
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
-msgid "For handling mail (and other data) on Microsoft Exchange servers"
-msgstr "Priekš pasta (un citu datu) pārvietošanas uz Microsoft Exchange serveriem"
-
-#. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
-msgid "Secure Password"
-msgstr "Droša parole"
+#: ../camel/camel-exchange-provider.c:116
+#| msgid "For handling mail (and other data) on Microsoft Exchange servers"
+msgid ""
+"For handling mail (and other data) on Microsoft Exchange 2000 and 2003 "
+"servers via OWA"
+msgstr ""
+"Pasta (un citu datu) apstrādei uz Microsoft Exchange 2000 un 2003 serveriem, "
+"izmantojot OWA"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:136
+#: ../eplugin/exchange-account-setup.c:61
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
-"Šī opcija savienosies ar Exchange serveri autentificējoties ar drošu paroli "
-"(NTML)."
+"Ar šo opciju savienojums ar Exchange serveri notiks ar drošas paroles (NTLM) "
+"autentifikāciju."
 
-#: ../camel/camel-exchange-provider.c:108
-msgid "Plaintext Password"
-msgstr "Atklāta teksta parole"
-
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:146
+#: ../eplugin/exchange-account-setup.c:71
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
-"Šī opcija savienosies ar Exchange serveri autentificējoties ar standarto "
-"atklātā teksta paroli."
+"Ar šo opciju savienojums ar Exchange serveri notiks ar standarta atklātā "
+"teksta paroles autentifikāciju."
 
-#: ../camel/camel-exchange-store.c:309
+#: ../camel/camel-exchange-store.c:338
 #, c-format
 msgid "Exchange server %s"
-msgstr "Apmaiņas serveris %s"
+msgstr "Exchange serveris %s"
 
-#: ../camel/camel-exchange-store.c:312
+#: ../camel/camel-exchange-store.c:341
 #, c-format
 msgid "Exchange account for %s on %s"
-msgstr "Apmaiņas konts priekš %s uz %s"
+msgstr "Exchange konts priekš %s uz %s"
 
-#: ../camel/camel-exchange-store.c:353
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sIevadiet paroli priekš %s"
+#: ../camel/camel-exchange-store.c:407
+msgid "Authentication password not available"
+msgstr "Autentifikācijas parole nav pieejama"
 
-#: ../camel/camel-exchange-store.c:404
-msgid "Evolution Exchange backend process"
-msgstr "Evolution Exchange aizmugurējais process"
-
-#: ../camel/camel-exchange-store.c:445
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"Nevaru autentificēties serverī. (Nepareiza parole?)\n"
-"\n"
-
-#: ../camel/camel-exchange-store.c:487
+#: ../camel/camel-exchange-store.c:493
 #, c-format
 msgid "No such folder %s"
 msgstr "Nav tādas mapes %s"
 
-#: ../camel/camel-exchange-store.c:564
-msgid "Cannot subscribe folder in offline mode."
-msgstr "Nevaru parakstīties mapei nepieslēgtā režīmā."
-
-#: ../camel/camel-exchange-store.c:581
-msgid "Cannot unsubscribe folder in offline mode."
-msgstr "Nevaru atteikt abonēšanu nepieslēgtā režīmā."
-
-#: ../camel/camel-exchange-store.c:696
-msgid "Cannot get folder info in offline mode."
-msgstr "Nevaru dabūt mapes informāciju nepieslēgtā režīmā."
-
-#: ../camel/camel-exchange-store.c:767
+#: ../camel/camel-exchange-store.c:648
+#, c-format
 msgid "Cannot create folder in offline mode."
-msgstr "Nevaru izveidot mapi nepieslēgtā režīmā."
+msgstr "Nevar izveidot mapi nesaistes režīmā."
 
-#: ../camel/camel-exchange-store.c:794
+#: ../camel/camel-exchange-store.c:679
+#, c-format
 msgid "Cannot delete folder in offline mode."
-msgstr "Nevaru dzēst mapi nepieslēgtā režīmā."
+msgstr "Nevar dzēst mapi nesaistes režīmā."
 
-#: ../camel/camel-exchange-store.c:810
+#: ../camel/camel-exchange-store.c:706
+#, c-format
 msgid "Cannot rename folder in offline mode."
-msgstr "Nevaru pārsaukt mapei nepieslēgtā režīmā."
+msgstr "Nevar pārsaukt mape nesaistes režīmā."
 
-#: ../camel/camel-exchange-transport.c:110
-msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Apmaiņas pārvadājumus var izmantot tikai ar Exchange pasta avotu"
+#: ../camel/camel-exchange-store.c:788
+#, c-format
+msgid "Cannot subscribe folder in offline mode."
+msgstr "Nevar abonēt mape nesaistes režīmā."
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-store.c:808
+#, c-format
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "Nevar atteikt abonēšanu nesaistes režīmā."
+
+#: ../camel/camel-exchange-transport.c:62
+#, c-format
 msgid "Cannot send message: one or more invalid recipients"
-msgstr "Nevaru nosūtīt ziņojumu: viens vai vairāki nederīgi saņēmēji"
+msgstr "Nevaru nosūtīt vēstuli — viens vai vairāki nederīgi adresāti"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:73
+#, c-format
 msgid "Could not find 'From' address in message"
-msgstr "Nevaru atrast 'No kā' adresi ziņojumā"
+msgstr "Nevar atrast “No” adresi vēstulē"
 
-#: ../camel/camel-stub.c:152
-#, c-format
-msgid "Could not create socket: %s"
-msgstr "Nevaru izveidot ligzdu: %s"
+#: ../camel/camel-exchange-utils.c:1164 ../camel/camel-exchange-utils.c:1320
+msgid "Could not open folder"
+msgstr "Nevar atvērt mapi"
 
-#: ../camel/camel-stub.c:170
-#, c-format
-msgid "Could not connect to %s: Please restart Evolution"
-msgstr "Nevaru pieslēgties %s: Lūdzu pārstartējiet Evolution"
+#: ../camel/camel-exchange-utils.c:1316 ../camel/camel-exchange-utils.c:1334
+msgid "Could not open folder: Permission denied"
+msgstr "Nevar atvērt mapi — liegta pieeja"
 
-#: ../camel/camel-stub.c:175
-#, c-format
-msgid "Could not connect to %s: %s"
-msgstr "Nevaru pievienoties %s: %s"
-
-#: ../camel/camel-stub.c:205
-#, c-format
-msgid "Path too long: %s"
-msgstr "Ceļš ir pārāk garš: %s"
-
-#: ../camel/camel-stub.c:231
-#, c-format
-msgid "Could not start status thread: %s"
-msgstr "Nevaru sākt statusa pavedienu: %s"
-
-#: ../camel/camel-stub.c:485
-#, c-format
-msgid "Lost connection to %s"
-msgstr "Pazaudēts pieslēgums uz %s"
-
-#: ../camel/camel-stub.c:489
-#, c-format
-msgid "Error communicating with %s: %s"
-msgstr "Kļūda sazinājoties ar %s: %s"
-
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../camel/camel-exchange-utils.c:1388 ../camel/camel-exchange-utils.c:2389
 msgid "No such folder"
 msgstr "Nav tādas mapes"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../camel/camel-exchange-utils.c:1410 ../camel/camel-exchange-utils.c:3313
+#: ../camel/camel-exchange-utils.c:3356 ../camel/camel-exchange-utils.c:3525
+#: ../camel/camel-exchange-utils.c:3578 ../camel/camel-exchange-utils.c:3640
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
+#: ../server/storage/e-storage.c:574
 msgid "Permission denied"
-msgstr "Pieeja aizliegta"
+msgstr "Pieeja liegta"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Nevaru atvert mapi: Pieeja aizliegta"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
-msgid "Could not open folder"
-msgstr "Nevaru atvert mapi"
-
-#: ../mail/mail-stub-exchange.c:764
+#: ../camel/camel-exchange-utils.c:2398
 msgid "Could not create folder."
-msgstr "Nevaru izveidot mapi."
+msgstr "Nevarēja izveidot mapi."
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../camel/camel-exchange-utils.c:2486
 msgid "Could not open Deleted Items folder"
-msgstr "Nevaru atvert 'Dzēsti ziņojumi' mapi"
+msgstr "Nevarēja atvērt dzēsto vēstuļu mapi"
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
-msgid "Could not get new messages"
-msgstr "Nevaru dabūt jaunus ziņojumus"
-
-#: ../mail/mail-stub-exchange.c:1386
+#: ../camel/camel-exchange-utils.c:2615
 msgid "Could not empty Deleted Items folder"
-msgstr "Nevaru izdzēst 'Dzēsti ziņojumi' mapi"
+msgstr "Nevarēja iztīrīt dzēsto vēstuļu mapi"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../camel/camel-exchange-utils.c:2617
+msgid "Permission denied. Could not delete certain messages."
+msgstr "Pieeja liegta. Nevarēja izdzēst noteiktas vēstules."
+
+#: ../camel/camel-exchange-utils.c:2663
 msgid "Could not append message; mailbox is over quota"
-msgstr "Nevaru pievienot ziņojumu; pastkastīte ir pārpildīta"
+msgstr "Nevarēja pievienot vēstuli; pastkaste pārsniedz kvotu"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../camel/camel-exchange-utils.c:2664
 msgid "Could not append message"
-msgstr "Nevaru pievienot ziņojumu"
+msgstr "Nevarēja pievienot vēstuli"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../camel/camel-exchange-utils.c:2851
 msgid "No such message"
-msgstr "Nav tāda ziņojuma"
+msgstr "Nav tādas vēstules"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../camel/camel-exchange-utils.c:2923
 msgid "Message has been deleted"
-msgstr "Ziņojums tika nodzēsts"
+msgstr "Vēstule tika izdzēsta"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../camel/camel-exchange-utils.c:2925
 msgid "Error retrieving message"
-msgstr "Kļūda atgūstot ziņojumu"
+msgstr "Kļūda, saņemot vēstuli"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../camel/camel-exchange-utils.c:2974
 msgid "Mailbox does not support full-text searching"
-msgstr "Paskastīte neaatbalsta pilnteksta meklēšanu"
+msgstr "Pastkaste neatbalsta pilna teksta meklēšanu"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../camel/camel-exchange-utils.c:3086
 msgid "Unable to move/copy messages"
-msgstr "Nevaru pārvietot/kopēt ziņojumu"
+msgstr "Nevar pārvietot/kopēt vēstuli"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../camel/camel-exchange-utils.c:3218
 msgid "No mail submission URI for this mailbox"
-msgstr "Nav pasta iesniegšanas URI priekš šīs pastkastītes"
+msgstr "Nav pasta iesniegšanas URI šai pastkastei"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../camel/camel-exchange-utils.c:3251
 msgid "Server won't accept mail via Exchange transport"
-msgstr "Serveris nepieņems pastu izmantojot Exchange pārvadājumus"
+msgstr "Serveris nepieņems pasta sūtījumus, izmantojot Exchange pārvadājumus"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../camel/camel-exchange-utils.c:3253
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
 "Jūsu kontam nav atļaujas izmantot <%s>\n"
-" kā 'No kā' adresi."
+" kā “No” adresi."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../camel/camel-exchange-utils.c:3265
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
-"Nevaru nosūtīt ziņojumu.\n"
-"Tas nozīmē, ka Jūsu konts ir pārpildīts."
+"Nevar nosūtīt vēstuli.\n"
+"Tas nozīmē, ka jūsu konts ir pārsniedzis kvotu."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../camel/camel-exchange-utils.c:3269
 msgid "Could not send message"
-msgstr "Nevaru nosūtīt ziņojumu"
+msgstr "Neizdevās nosūtīt vēstuli"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../camel/camel-exchange-utils.c:3305 ../camel/camel-exchange-utils.c:3361
+#: ../camel/camel-exchange-utils.c:3529 ../camel/camel-exchange-utils.c:3582
+#: ../camel/camel-exchange-utils.c:3646
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
+#: ../server/storage/e-storage.c:558
 msgid "Generic error"
 msgstr "Vispārēja kļūda"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../camel/camel-exchange-utils.c:3309
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
 msgid "Folder already exists"
 msgstr "Mape jau eksistē"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Evolution adrešu grāmatiņas apmaiņa aizmugurē"
+#: ../eplugin/exchange-account-setup.c:266
+#| msgid "Out of Office Assistant"
+msgid "Out of Office"
+msgstr "Neatrodas birojā"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Calendar Exchange backend"
-msgstr "Evolution kalendāra apmaiņa aizmugurē"
+#: ../eplugin/exchange-account-setup.c:273
+#| msgid ""
+#| "<small>The message specified below will be automatically sent to each "
+#| "person who sends\n"
+#| "mail to you while you are out of the office.</small>"
+msgid ""
+"The message specified below will be automatically sent to \n"
+"each person who sends mail to you while you are out of the office."
+msgstr ""
+"<small> Zemāk uzrakstītais ziņojums tiks automātiski nosūtīts katrai "
+"personai, kas nosūtīs jums vēstuli, kamēr nebūsiet birojā.</small>"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian savienotājs priekš Exchange"
+#: ../eplugin/exchange-account-setup.c:278
+#| msgid "<b>Status:</b>"
+msgid "Status:"
+msgstr "Statuss:"
 
-#: ../storage/exchange-autoconfig-wizard.c:211
+#: ../eplugin/exchange-account-setup.c:285
+#: ../eplugin/exchange-account-setup.c:290
+#| msgid "I am currently out of the office"
+msgid "I am out of the office"
+msgstr "Esmu ārpus biroja"
+
+#: ../eplugin/exchange-account-setup.c:286
+#: ../eplugin/exchange-account-setup.c:289
+#| msgid "I am currently in the office"
+msgid "I am in the office"
+msgstr "Esmu birojā"
+
+#. Security settings
+#: ../eplugin/exchange-account-setup.c:325
+msgid "Security"
+msgstr "Drošība"
+
+#. Change Password
+#: ../eplugin/exchange-account-setup.c:336
+msgid "Change the password for Exchange account"
+msgstr "Mainīt Exchange konta paroli"
+
+#: ../eplugin/exchange-account-setup.c:338
+#: ../eplugin/exchange-change-password.c:89
+msgid "Change Password"
+msgstr "Mainīt paroli"
+
+#. Delegation Assistant
+#: ../eplugin/exchange-account-setup.c:343
+msgid "Manage the delegate settings for Exchange account"
+msgstr "Pārvaldīt Exchange konta pārstāvju iestatījumus"
+
+#: ../eplugin/exchange-account-setup.c:345
+#| msgid "_Delegation Assistant"
+msgid "Delegation Assistant"
+msgstr "Pārstāvju palīgs"
+
+#. Miscelleneous settings
+#: ../eplugin/exchange-account-setup.c:357
+msgid "Miscellaneous"
+msgstr "Dažādi"
+
+#. Folder Size
+#: ../eplugin/exchange-account-setup.c:367
+#| msgid "Get the size of personal folders"
+msgid "View the size of all Exchange folders"
+msgstr "Rādīt visu Exchange mapju izmērus"
+
+#: ../eplugin/exchange-account-setup.c:369
+#: ../eplugin/exchange-folder-size-display.c:188
+#| msgid "Folder _Size"
+msgid "Folder Size"
+msgstr "Mapes izmērs"
+
+#: ../eplugin/exchange-account-setup.c:376
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
+#| msgid "Exchange server %s"
+msgid "Exchange Settings"
+msgstr "Exchange iestatījumi"
+
+#: ../eplugin/exchange-account-setup.c:670
+#| msgid "OWA URL:"
+msgid "_OWA URL:"
+msgstr "_OWA URL:"
+
+#: ../eplugin/exchange-account-setup.c:696
+msgid "A_uthenticate"
+msgstr "A_utentificēt"
+
+#: ../eplugin/exchange-account-setup.c:718
+msgid "Mailbox name is _different from username"
+msgstr "Pastkastes nosaukums _atšķiras no lietotājvārda"
+
+#: ../eplugin/exchange-account-setup.c:734
+#| msgid "_Inbox:"
+msgid "_Mailbox:"
+msgstr "_Pastkaste:"
+
+#: ../eplugin/exchange-account-setup.c:923
+msgid "_Authentication Type"
+msgstr "_Autentifikācijas tips"
+
+#: ../eplugin/exchange-account-setup.c:937
+msgid "Ch_eck for Supported Types"
+msgstr "Pārbaudīt atbalstītos _tipus"
+
+#: ../eplugin/exchange-account-setup.c:1052 ../eplugin/exchange-contacts.c:225
+#, c-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#: ../eplugin/exchange-account-setup.c:1054 ../eplugin/exchange-contacts.c:227
+#, c-format
+msgid "0 KB"
+msgstr "0 KB"
+
+#. FIXME: Take care of i18n
+#: ../eplugin/exchange-account-setup.c:1059 ../eplugin/exchange-calendar.c:244
+#: ../eplugin/exchange-contacts.c:230
+msgid "Size:"
+msgstr "Izmērs:"
+
+#: ../eplugin/exchange-calendar.c:204 ../eplugin/exchange-contacts.c:178
+msgid ""
+"Evolution is in offline mode. You cannot create or modify folders now.\n"
+"Please switch to online mode for such operations."
+msgstr ""
+"Evolution ir nesaistes režīmā. Pašlaik nevar izveidot vai mainīt mapes.\n"
+"Lūdzu, pārslēdzieties uz tiešsaistes režīmu, lai veiktu šādas darbības."
+
+#: ../eplugin/exchange-calendar.c:255 ../eplugin/exchange-contacts.c:247
+msgid "_Location:"
+msgstr "_Atrašanās vieta:"
+
+#: ../eplugin/exchange-change-password.c:99
+msgid "Your current password has expired. Please change your password now."
+msgstr ""
+"Jūsu pašreizējās paroles derīguma termiņš ir iztecējis. Lūdzu, nomainiet "
+"savu paroli tagad."
+
+#: ../eplugin/exchange-change-password.c:114
+#| msgid "Current Password:"
+msgid "Current _Password:"
+msgstr "Pašreizējā _parole:"
+
+#: ../eplugin/exchange-change-password.c:121
+#| msgid "New Password:"
+msgid "_New Password:"
+msgstr "Jau_nā parole:"
+
+#: ../eplugin/exchange-change-password.c:128
+#| msgid "Confirm Password:"
+msgid "_Confirm Password:"
+msgstr "Apstipriniet par_oli:"
+
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: ../eplugin/exchange-change-password.c:179
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+"Pašreizējā parole nesakrīt ar esošo paroli no jūsu konta. Lūdzu, ievadiet "
+"pareizo paroli"
+
+#: ../eplugin/exchange-change-password.c:186
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr "Abas paroles nesakrīt. Lūdzu, vēlreiz ievadiet paroles."
+
+#. Translators: The %d is replaced with the actual number of days
+#: ../eplugin/exchange-config-listener.c:661
+#, c-format, c-format
+#| msgid "Your password will expire in 7 days..."
+msgid "Your password will expire in the next %d day"
+msgid_plural "Your password will expire in the next %d days"
+msgstr[0] "Jūsu parole izbeigsies pēc %d dienas"
+msgstr[1] "Jūsu parole izbeigsies pēc %d dienām"
+msgstr[2] "Jūsu parole izbeigsies pēc %d dienām"
+
+#: ../eplugin/exchange-config-listener.c:664
+msgid "Password Expiry Warning..."
+msgstr "Paroles termiņa izbeigšanās brīdinājums..."
+
+#: ../eplugin/exchange-config-listener.c:681
+msgid "_Change Password"
+msgstr "_Mainīt paroli"
+
+#: ../eplugin/exchange-config-listener.c:734
+msgid "Out of Office Assistant"
+msgstr "Ārpus biroja palīgs"
+
+#: ../eplugin/exchange-config-listener.c:751
+#| msgid "I am currently out of the office"
+msgid "Currently, your status is \"Out of the Office\"."
+msgstr "Pašlaik jūsu status ir “Esmu ārpus biroja”."
+
+#: ../eplugin/exchange-config-listener.c:751
+#| msgid ""
+#| "<b>Currently, your status is \"Out of the Office\". </b>\n"
+#| "\n"
+#| "Would you like to change your status to \"In the Office\"? "
+msgid "Would you like to change your status to \"In the Office\"?"
+msgstr "Vai vēlaties mainīt statusu uz “Birojā”?"
+
+#: ../eplugin/exchange-config-listener.c:780
+#| msgid "No, Don't Change Status"
+msgid "_No, Don't Change Status"
+msgstr "_Nē, nevajag mainīt statusu"
+
+#: ../eplugin/exchange-config-listener.c:801
+#| msgid "Yes, Change Status"
+msgid "_Yes, Change Status"
+msgstr "_Jā, mainīt statusu"
+
+#: ../eplugin/exchange-config-listener.c:832
+#, c-format, c-format
+#| msgid "%sEnter password for %s"
+msgid "Enter Password for %s"
+msgstr "Ievadiet %s paroli"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:465
+#: ../server/storage/exchange-hierarchy-foreign.c:264
+#| msgid "C_alendar:"
+msgid "Calendar"
+msgstr "Kalendārs"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:468
+#: ../server/storage/exchange-hierarchy-foreign.c:273
+#| msgid "_Tasks:"
+msgid "Tasks"
+msgstr "Uzdevumi"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:463
+#: ../server/storage/exchange-hierarchy-foreign.c:268
+#| msgid "_Inbox:"
+msgid "Inbox"
+msgstr "Iesūtne"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:471
+#: ../server/storage/exchange-hierarchy-foreign.c:265
+#| msgid "Co_ntacts:"
+msgid "Contacts"
+msgstr "Kontakti"
+
+#: ../eplugin/exchange-delegates-user.c:142
+#: ../eplugin/exchange-permissions-dialog.c:552
+#: ../server/lib/e2k-security-descriptor.c:917
+msgid "Custom"
+msgstr "Pielāgots"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:166
+#: ../eplugin/exchange-delegates-user.c:333
+#: ../eplugin/exchange-delegates-user.c:343
+#: ../eplugin/exchange-delegates-user.c:353
+#: ../eplugin/exchange-delegates-user.c:363
+msgid "Editor (read, create, edit)"
+msgstr "Redaktors (lasīt, izveidot, rediģēt)"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:171
+#: ../eplugin/exchange-delegates-user.c:332
+#: ../eplugin/exchange-delegates-user.c:342
+#: ../eplugin/exchange-delegates-user.c:352
+#: ../eplugin/exchange-delegates-user.c:362
+msgid "Author (read, create)"
+msgstr "Autors (lasīt, izveidot)"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:176
+#: ../eplugin/exchange-delegates-user.c:331
+#: ../eplugin/exchange-delegates-user.c:341
+#: ../eplugin/exchange-delegates-user.c:351
+#: ../eplugin/exchange-delegates-user.c:361
+msgid "Reviewer (read-only)"
+msgstr "Recenzents (tikai lasīt)"
+
+#: ../eplugin/exchange-delegates-user.c:180
+#: ../eplugin/exchange-delegates-user.c:330
+#: ../eplugin/exchange-delegates-user.c:340
+#: ../eplugin/exchange-delegates-user.c:350
+#: ../eplugin/exchange-delegates-user.c:360
+#: ../server/lib/e2k-security-descriptor.c:902
+msgid "None"
+msgstr "Neviens"
+
+#. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
+#. * that the delegatee would receive
+#: ../eplugin/exchange-delegates-user.c:260
+msgid "Delegate Permissions"
+msgstr "Pārstāvju tiesības"
+
+#: ../eplugin/exchange-delegates-user.c:278
+msgid "Permissions for"
+msgstr "Tiesības"
+
+#. Translators: This is used for permissions for <user> for the folder Calendar.
+#: ../eplugin/exchange-delegates-user.c:290
+msgid "C_alendar:"
+msgstr "K_alendāram:"
+
+#. Translators: This is used for permissions for <user> for the folder Tasks.
+#: ../eplugin/exchange-delegates-user.c:299
+msgid "_Tasks:"
+msgstr "_Uzdevumiem:"
+
+#. Translators: This is used for permissions for <user> for the folder Inbox.
+#: ../eplugin/exchange-delegates-user.c:308
+msgid "_Inbox:"
+msgstr "_Iesūtnei:"
+
+#. Translators: This is used for permissions for <user> for the folder Contacts.
+#: ../eplugin/exchange-delegates-user.c:317
+msgid "Co_ntacts:"
+msgstr "Ko_ntaktiem:"
+
+#: ../eplugin/exchange-delegates-user.c:365
+#| msgid "Delegate Permissions"
+msgid "_Summarize permissions"
+msgstr "Apkopojot tie_sības"
+
+#: ../eplugin/exchange-delegates-user.c:369
+msgid "_Delegate can see private items"
+msgstr "_Pārstāvis varēs redzēt privātus vienumus"
+
+#: ../eplugin/exchange-delegates-user.c:375
+#: ../eplugin/exchange-permissions-dialog.c:167
+#, c-format, c-format
+#| msgid "Permissions for"
+msgid "Permissions for %s"
+msgstr "%s tiesības"
+
+#. To translators: This is a part of the message to be sent to the delegatee
+#. * summarizing the permissions assigned to him.
+#.
+#: ../eplugin/exchange-delegates-user.c:466
+msgid ""
+"This message was sent automatically by Evolution to inform you that you have "
+"been designated as a delegate. You can now send messages on my behalf."
+msgstr ""
+"Šo vēstuli automātiski nosūtīja Evolution, lai jūs informētu, ka esat "
+"nozīmēts par pārstāvi. Jūs tagad varat sūtīt vēstules manā vārdā."
+
+#. To translators: Another chunk of the same message.
+#.
+#: ../eplugin/exchange-delegates-user.c:471
+msgid "You have been given the following permissions on my folders:"
+msgstr "Jums ir dotas sekojošās tiesības manās mapēs:"
+
+#: ../eplugin/exchange-delegates-user.c:499
+#| msgid "_Delegate can see private items"
+msgid "You are also permitted to see my private items."
+msgstr "Jums ir arī tiesības redzēt manus privātos vienumus."
+
+#: ../eplugin/exchange-delegates-user.c:508
+msgid "However, you are not permitted to see my private items."
+msgstr "Bet jums nav tiesības redzēt manus privātos vienumus."
+
+#: ../eplugin/exchange-delegates-user.c:545
+#, c-format
+msgid "You have been designated as a delegate for %s"
+msgstr "Jūs esat nozīmēts kā %s pārstāvis"
+
+#: ../eplugin/exchange-delegates.c:418
+#| msgid "Delegates"
+msgid "Delegate To:"
+msgstr "Deleģēt:"
+
+#: ../eplugin/exchange-delegates.c:418
+#| msgid "Delegates"
+msgid "Delegate To"
+msgstr "Deleģēt"
+
+#: ../eplugin/exchange-delegates.c:588
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "Izņemt pārstāvi %s?"
+
+#: ../eplugin/exchange-delegates.c:707
+#| msgid "Could not create directory %s: %s"
+msgid "Could not access Active Directory"
+msgstr "Nevarēja piekļūt pie Active Directory"
+
+#: ../eplugin/exchange-delegates.c:719
+#| msgid "Global Address List / Active Directory"
+msgid "Could not find self in Active Directory"
+msgstr "Nevarēja atrast sevi iekš Active Directory"
+
+#: ../eplugin/exchange-delegates.c:732
+#, c-format, c-format
+#| msgid "Global Address List / Active Directory"
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Nevarēja atrast pārstāvi %s iekš Active Directory"
+
+#: ../eplugin/exchange-delegates.c:744
+#, c-format, c-format
+#| msgid "Could not create socket: %s"
+msgid "Could not remove delegate %s"
+msgstr "Nevarēja izņemt pārstāvi %s"
+
+#: ../eplugin/exchange-delegates.c:804
+#| msgid "Could not create socket: %s"
+msgid "Could not update list of delegates."
+msgstr "Nevarēju atjaunināt pārstāvju sarakstu."
+
+#: ../eplugin/exchange-delegates.c:822
+#, c-format, c-format
+#| msgid "Could not create socket: %s"
+msgid "Could not add delegate %s"
+msgstr "Nevarēja pievienot pārstāvi %s"
+
+#: ../eplugin/exchange-delegates.c:942
+msgid "Delegates"
+msgstr "Pārstāvji"
+
+#: ../eplugin/exchange-delegates.c:957
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Šie lietotāji varēs nosūtīt vēstules jūsu vārdā \n"
+"un piekļūt jūsu mapēm ar tiesībām, kuras viņiem dosiet."
+
+#: ../eplugin/exchange-delegates.c:981
+msgid "_Edit"
+msgstr "R_ediģēt"
+
+#: ../eplugin/exchange-delegates.c:1011
+#: ../eplugin/exchange-permissions-dialog.c:926
+msgid "Name"
+msgstr "Vārds"
+
+#: ../eplugin/exchange-delegates.c:1037
+msgid "Error reading delegates list."
+msgstr "Kļūda, nolasot pārstāvju sarakstu."
+
+#: ../eplugin/exchange-folder-permission.c:246
+#: ../eplugin/exchange-folder-permission.c:532
+#: ../eplugin/exchange-folder-permission.c:567
+#: ../eplugin/exchange-folder-permission.c:602
+#| msgid "Permissions for"
+msgid "Permissions..."
+msgstr "Atļaujas..."
+
+#: ../eplugin/exchange-folder-permission.c:248
+#| msgid "Delegate Permissions"
+msgid "Check folder permissions"
+msgstr "Pārbaudīt mapes atļaujas"
+
+#: ../eplugin/exchange-folder-permission.c:253
+#: ../eplugin/exchange-folder-permission.c:539
+#: ../eplugin/exchange-folder-permission.c:574
+#: ../eplugin/exchange-folder-permission.c:609
+#| msgid "Subscribe to _Other User's Folder..."
+msgid "Subscribe to Other User's Folder..."
+msgstr "Abonēt cita lietotāja mapi..."
+
+#: ../eplugin/exchange-folder-permission.c:255
+#: ../eplugin/exchange-folder-permission.c:541
+#: ../eplugin/exchange-folder-permission.c:576
+#: ../eplugin/exchange-folder-permission.c:611
+#: ../eplugin/exchange-folder-subscription.c:319
+#| msgid "Subscribe to _Other User's Folder..."
+msgid "Subscribe to Other User's Folder"
+msgstr "Abonēt cita lietotāja mapi"
+
+#: ../eplugin/exchange-folder-permission.c:260
+#: ../eplugin/exchange-folder-permission.c:546
+#: ../eplugin/exchange-folder-permission.c:581
+#: ../eplugin/exchange-folder-permission.c:616
+#| msgid "Subscribe to _Other User's Folder..."
+msgid "Unsubscribe Folder..."
+msgstr "Pārtraukt mapes abonēšanu..."
+
+#: ../eplugin/exchange-folder-permission.c:534
+#| msgid "Delegate Permissions"
+msgid "Check calendar permissions"
+msgstr "Pārbaudīt kalendāra atļaujas"
+
+#: ../eplugin/exchange-folder-permission.c:569
+#| msgid "Delegate Permissions"
+msgid "Check tasks permissions"
+msgstr "Pārbaudīt uzdevuma atļaujas"
+
+#: ../eplugin/exchange-folder-permission.c:604
+msgid "Check address book permissions"
+msgstr "Pārbaudīt adrešu grāmatas atļaujas"
+
+#: ../eplugin/exchange-folder-size-display.c:141
+msgid "Exchange Folder Tree"
+msgstr "Exchange mapju koks"
+
+#: ../eplugin/exchange-folder-size-display.c:156
+#, c-format
+msgid "Total size: %.2f KB"
+msgstr "Kopējais izmērs: %.2f KB"
+
+#: ../eplugin/exchange-folder-size-display.c:184
+#| msgid "Folder owner"
+msgid "Folder Name"
+msgstr "Mapes nosaukums"
+
+#. FIXME Limit to one user
+#: ../eplugin/exchange-folder-subscription.c:79
+#| msgid "Username:"
+msgid "User"
+msgstr "Lietotājs"
+
+#: ../eplugin/exchange-folder-subscription.c:335
+msgid "_Account:"
+msgstr "_Konts:"
+
+#: ../eplugin/exchange-folder-subscription.c:342
+#| msgid "Full Name:"
+msgid "_Folder Name:"
+msgstr "_Mapes nosaukums:"
+
+#: ../eplugin/exchange-folder-subscription.c:355
+#| msgid "Username:"
+msgid "_User:"
+msgstr "_Lietotājs:"
+
+#: ../eplugin/exchange-folder.c:348 ../eplugin/exchange-folder.c:404
+#, c-format
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "Tiešām pārtraukt mapes “%s” abonēšanu?"
+
+#: ../eplugin/exchange-folder.c:361 ../eplugin/exchange-folder.c:417
+#, c-format, c-format
+#| msgid "_Unsubscribe from Other User's Folder"
+msgid "Unsubscribe from \"%s\""
+msgstr "Pārtraukt mapes “%s” abonēšanu"
+
+#: ../eplugin/exchange-mail-send-options.c:231
+#| msgid "Options"
+msgid "_Send Options"
+msgstr "_Sūtīšanas iespējas"
+
+#: ../eplugin/exchange-mail-send-options.c:233
+msgid "Insert Send options"
+msgstr "Ievietot sūtīšanas iespējas"
+
+#. FIXME: Don't hardcode this
+#: ../eplugin/exchange-operations.c:132 ../eplugin/exchange-operations.c:181
+#: ../server/storage/exchange-account.c:1310
+msgid "Personal Folders"
+msgstr "Personiskās mapes"
+
+#: ../eplugin/exchange-permissions-dialog.c:278
+#| msgid "Permission denied"
+msgid "(Permission denied.)"
+msgstr "(Pieeja liegta.)"
+
+#: ../eplugin/exchange-permissions-dialog.c:389
+msgid "Add User:"
+msgstr "Pievienot lietotāju:"
+
+#: ../eplugin/exchange-permissions-dialog.c:389
+#: ../eplugin/exchange-send-options.c:478
+msgid "Add User"
+msgstr "Pievienot lietotāju"
+
+#: ../eplugin/exchange-permissions-dialog.c:802
+#| msgid "Permissions for"
+msgid "Permissions"
+msgstr "Atļaujas"
+
+#: ../eplugin/exchange-permissions-dialog.c:819
+msgid "Role: "
+msgstr "Loma: "
+
+#: ../eplugin/exchange-permissions-dialog.c:845
+msgid "Create items"
+msgstr "Izveidot vienumus"
+
+#: ../eplugin/exchange-permissions-dialog.c:849
+msgid "Read items"
+msgstr "Lasīšanas vienumi"
+
+#: ../eplugin/exchange-permissions-dialog.c:853
+msgid "Create subfolders"
+msgstr "Izveidot apakšmapes"
+
+#: ../eplugin/exchange-permissions-dialog.c:861
+msgid "Cannot Edit"
+msgstr "Nevar rediģēt"
+
+#: ../eplugin/exchange-permissions-dialog.c:867
+msgid "Edit Own Items"
+msgstr "Rediģēt savus vienumus"
+
+#: ../eplugin/exchange-permissions-dialog.c:873
+msgid "Edit Any Items"
+msgstr "Rediģēt jebkurus vienumus"
+
+#: ../eplugin/exchange-permissions-dialog.c:887
+msgid "Folder owner"
+msgstr "Mapes īpašnieks"
+
+#: ../eplugin/exchange-permissions-dialog.c:891
+msgid "Folder contact"
+msgstr "Mapes kontakts"
+
+#: ../eplugin/exchange-permissions-dialog.c:895
+msgid "Folder visible"
+msgstr "Mapes redzamība"
+
+#: ../eplugin/exchange-permissions-dialog.c:903
+msgid "Cannot Delete"
+msgstr "Nevaru izdzēst"
+
+#: ../eplugin/exchange-permissions-dialog.c:910
+msgid "Delete Own Items"
+msgstr "Dzēst savus vienumus"
+
+#: ../eplugin/exchange-permissions-dialog.c:916
+msgid "Delete Any Items"
+msgstr "Dzēst jebkurus vienumus"
+
+#: ../eplugin/exchange-permissions-dialog.c:930
+#| msgid "Role: "
+msgid "Role"
+msgstr "Loma"
+
+#: ../eplugin/exchange-send-options.c:346
+#| msgid "Exchange Configuration"
+msgid "Exchange - Send Options"
+msgstr "Exchange — sūtīšanas iespējas"
+
+#: ../eplugin/exchange-send-options.c:367
+msgid "Message Settings"
+msgstr "Vēstuļu iestatījumi"
+
+#: ../eplugin/exchange-send-options.c:381
+msgid "I_mportance: "
+msgstr "S_varīgums:"
+
+#. Translators: Here's set a message sensitivity, which means for exchange
+#. * one of Normal, Personal, Private, Confidential.
+#: ../eplugin/exchange-send-options.c:390
+msgid "_Sensitivity: "
+msgstr "Jutīgum_s"
+
+#: ../eplugin/exchange-send-options.c:402
+#: ../eplugin/exchange-send-options.c:412
+msgid "Normal"
+msgstr "Parasta"
+
+#: ../eplugin/exchange-send-options.c:403
+msgid "Personal"
+msgstr "Personīga"
+
+#: ../eplugin/exchange-send-options.c:404
+msgid "Private"
+msgstr "Privāta"
+
+#: ../eplugin/exchange-send-options.c:405
+msgid "Confidential"
+msgstr "Konfidenciāla"
+
+#: ../eplugin/exchange-send-options.c:413
+msgid "High"
+msgstr "Augsta"
+
+#: ../eplugin/exchange-send-options.c:414
+msgid "Low"
+msgstr "Zema"
+
+#: ../eplugin/exchange-send-options.c:416
+#| msgid "Delegates"
+msgid "Send as Delegate"
+msgstr "Sūtīt kā pārstāvis"
+
+#: ../eplugin/exchange-send-options.c:433
+msgid "_User"
+msgstr "_Lietotājs"
+
+#: ../eplugin/exchange-send-options.c:441
+#| msgid "Options"
+msgid "Tracking Options"
+msgstr "Izsekošanas opcijas"
+
+#: ../eplugin/exchange-send-options.c:449
+msgid "Request a _delivery receipt for this message"
+msgstr "Pieprasīt _piegādes paziņojumu par šo vēstuli"
+
+#: ../eplugin/exchange-send-options.c:454
+msgid "Request a _read receipt for this message"
+msgstr "Piep_rasīt izlasīšanas paziņojumu par šo vēstuli"
+
+#: ../eplugin/exchange-user-dialog.c:140
+msgid "Select User"
+msgstr "Izvēlieties lietotāju"
+
+#: ../eplugin/exchange-user-dialog.c:179
+msgid "Address Book..."
+msgstr "Adrešu grāmata..."
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:1
+#| msgid "Exchange Configuration"
+msgid "Exchange Operations"
+msgstr "Exchange darbības"
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
+msgid "Size"
+msgstr "Izmērs"
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+msgid "Activates the Evolution-Exchange extension package."
+msgstr "Aktivitātes Evolution-Exchange paplašinājuma pakā."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:1
+#| msgid "You may only configure a single Exchange account"
+msgid "You may only configure a single Exchange account."
+msgstr "Jūs varat nokonfigurēt tikai vienu Exchange kontu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
+msgid "Please restart Evolution for changes to take effect"
+msgstr "Lūdzu, pārstartējiet Evolution, lai izmaiņas stātos spēkā"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:3
+msgid ""
+"Changes to options for Exchange account \"{0}\" will only take effect after "
+"restarting Evolution."
+msgstr ""
+"Izmaiņas Exchange \"{0}\"  konta opcijās stāsies spēkā tikai pēc Evolution "
+"pārstartēšanas."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
+msgid "The Exchange account will be removed when you quit Evolution"
+msgstr "Izejot no Evolution, Exchange konts tiks izņemts."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "Izejot no Evolution, Exchange konts tiks deaktivēts."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
+#| msgid "Could not create socket: %s"
+msgid "Could not read out-of-office state"
+msgstr "Nevarēja nolasīt “ārpus biroja” stāvokli"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
+#| msgid "Could not create socket: %s"
+msgid "Could not update out-of-office state"
+msgstr "Nevarēja atjaunināt “ārpus biroja” stāvokli"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
+msgid "Cannot change password due to configuration problems."
+msgstr "Nevar nomainīt paroli dēļ problēmām ar konfigurāciju."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:9
+msgid "Server rejected password because it is too weak."
+msgstr "Serveris noraidīja paroli, jo tā bija pārāk vāja."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:10
+msgid "Try again with a different password."
+msgstr "Mēģiniet vēlreiz ar citu paroli."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
+#| msgid "Change Password"
+msgid "Could not change password."
+msgstr "Neizdevās nomainīt paroli."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
+msgid "Password successfully changed."
+msgstr "Parole ir veiksmīgi nomainīta."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
+#| msgid "Exchange account for %s on %s"
+msgid "Exchange Account is offline."
+msgstr "Exchange konts ir nesaistē."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
+#| msgid "Create subfolders"
+msgid "Cannot display folders."
+msgstr "Nevar attēlot mapes."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
+#| msgid "Cannot get folder info in offline mode."
+msgid "Cannot access the \"Exchange settings\" tab in offline mode."
+msgstr "Nevar piekļūt “Exchange iestatījumu” cilnei nesaistes režīmā."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
+msgid "Cannot perform the operation."
+msgstr "Nevar veikt šo darbību."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
+#| msgid ""
+#| "Could not authenticate to server. (Password incorrect?)\n"
+#| "\n"
+msgid "Could not authenticate to server."
+msgstr "Neizdevās autentificēties ar serveri."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
+#| msgid ""
+#| "Could not authenticate to the Exchange server.\n"
+#| "Make sure the username and password are correct and try again."
+msgid "Make sure the username and password are correct and try again."
+msgstr ""
+"Pārliecinieties, ka lietotāja vārds un parole ir pareizas un mēģiniet "
+"vēlreiz."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
+msgid ""
+"This probably means that your server requires \n"
+"you to specify the Windows domain name \n"
+"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
+"\n"
+"Also, you may have typed your password incorrectly."
+msgstr ""
+"Tas visdrīzāk nozīmē, ka jūsu serveris pieprasa, lai jūs\n"
+"norādāt Windows domēna vārdu, kā daļu no jūsu\n"
+"lietotājvārda, piemēram, &quot;DOMĒNS\\lietotājs&quot;\n"
+"\n"
+"Arī iespējams, ka esat nepareizi ievadījis paroli."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
+msgid "Mailbox for {0} is not on this server."
+msgstr "{0} pastkaste nav uz šī servera."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:25
+msgid "The Exchange server is not compatible with Exchange Connector."
+msgstr "Šis Exchange serveris nav savietojams ar Exchange Connector."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:26
+#| msgid ""
+#| "The Exchange server URL you provided is for an Exchange 5.5 Server. "
+#| "Ximian Connector supports Microsoft Exchange 2000 and 2003 only."
+msgid ""
+"The server is running Exchange 5.5. Exchange Connector \n"
+"supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"Uz servera darbojas Exchange 5.5. Exchange Connector \n"
+"atbalsta tikai  Microsoft Exchange 2000 un 2003."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:28
+msgid "Could not find Exchange Web Storage System."
+msgstr "Nevarēja atrast Exchange Web Storage System."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:29
+msgid ""
+"If OWA is running on a different path, you must specify that in the account "
+"configuration dialog."
+msgstr ""
+"Ja OWA darbojas uz cita ceļa, jums tas ir jānorāda konta konfigurēšanas "
+"dialoglodziņā."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:30
+msgid "No mailbox for user {0} on {1}."
+msgstr "Lietotājam {0} uz {1} nav pastkastes."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:31
+#| msgid "Could not create folder."
+msgid "Could not locate server {0}."
+msgstr "Nevarēja atrast serveri {0}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:32
+#| msgid ""
+#| "Could not locate Exchange server.\n"
+#| "Make sure the server name is spelled correctly and try again."
+msgid "Make sure the server name is spelled correctly and try again."
+msgstr ""
+"Pārliecinieties, ka servera nosaukums ir uzrakstīts pareizi un mēģiniet "
+"vēlreiz."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:33
+#| msgid "Could not connect to %s: %s"
+msgid "Could not connect to server {0}."
+msgstr "Nevarēja savienoties ar serveri {0}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:34
+#| msgid ""
+#| "Could not find OWA data at the indicated URL.\n"
+#| "Make sure the URL is correct and try again."
+msgid "Make sure the URL is correct and try again."
+msgstr "Pārliecinieties, ka URL ir pareizs un mēģiniet vēlreiz."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:35
+#| msgid "Your password will expire in 7 days..."
+msgid "Your password has expired."
+msgstr "Parolei beidzies derīguma termiņš."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
+#| msgid "Unknown"
+msgid "Unknown error."
+msgstr "Nezināma kļūda."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
+msgid "You have exceeded your quota for storing mail on this server."
+msgstr "Jūs esat pārsniedzis savu kvotu pasta glabāšanai uz šī servera."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
+msgid ""
+"Your current usage is: {0} KB. You will not be able to either send or "
+"receive mail now."
+msgstr ""
+"Jūsu pašreizējais izmantojums ir: {0} KB. Jūs tagad nevarēsiet sūtīt vai "
+"saņemt vēstules."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
+msgid "You are nearing your quota available for storing mail on this server."
+msgstr ""
+"Jūs tuvojaties pieejamās pasta glabāšanas vietas kvotas pārsniegšanai uz "
+"servera."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
+msgid ""
+"Your current usage is: {0} KB. You will not be able to send mail until you "
+"clear up some space by deleting some mail."
+msgstr ""
+"Jūsu pašreizējais izmantojums ir: {0} KB. Jūs tagad nevarēsiet sūtīt "
+"vēstules, kamēr nebūsiet atbrīvojuši vietu, izdzēšot dažas vēstules."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
+msgid ""
+"Your current usage is: {0} KB. Try to clear up some space by deleting some "
+"mail."
+msgstr ""
+"Jūsu pašreizējais izmantojums ir: {0} KB. Mēģiniet attīrīt vietu, izdzēšot "
+"dažas vēstules."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+#| msgid "Could not connect to %s: %s"
+msgid "Could not connect to Exchange server."
+msgstr "Nevarēja savienoties ar Exchange serveri."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
+#| msgid ""
+#| "Ximian Connector requires access to certain functionality on the Exchange "
+#| "Server that appears to be disabled or blocked.  (This is usually "
+#| "unintentional.)  Your Exchange Administrator will need to enable this "
+#| "functionality in order for you to be able to use Ximian Connector.\n"
+#| "\n"
+#| "For information to provide to your Exchange administrator, please follow "
+#| "the link below:"
+msgid ""
+"Exchange Connector requires access to certain\n"
+"functionality on the Exchange Server that appears\n"
+"to be disabled or blocked. (This is usually \n"
+"unintentional.) Your Exchange Administrator will \n"
+"need to enable this functionality in order for \n"
+"you to be able to use Evolution Exchange Connector.\n"
+"\n"
+"For information to provide to your Exchange \n"
+"administrator, please follow the link below:\n"
+"\n"
+"{0}\n"
+"  "
+msgstr ""
+"Exchange Connector pieprasa pieeju noteiktai \n"
+"funkcionalitātei Exchange serverī, kas rādās ir \n"
+"atslēgta vai bloķēta. (Tas parasti ir bez iepriekšēja \n"
+"nodoma.) Jūsu Exchange administratoram \n"
+"vajadzēs ieslēgt šo funkcionalitāti, lai jūs varētu izmantot Evolution "
+"Exchange Connector.\n"
+"\n"
+" Lai saņemtu informāciju, ko nodot savam\n"
+"Exchange administratoram, sekojiet saitei zemāk\n"
+"\n"
+"{0}\n"
+"  "
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
+#| msgid ""
+#| "Could not configure Exchange account because an unknown error occurred. "
+#| "Check the URL, username, and password, and try again."
+msgid ""
+"Could not configure Exchange account because \n"
+"an unknown error occurred. Check the URL, \n"
+"username and password, and try again."
+msgstr ""
+"Nevar nokonfigurēt  Exchange kontu, jo gadījās\n"
+"nezināma kļūda. Pārbaudiet URL, lietotāja vārdu \n"
+"un paroli un mēģiniet vēlreiz."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
+msgid "No Global Catalog server configured for this account."
+msgstr "Šim kontam nav nokonfigurēts globālā kataloga serveris."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
+#| msgid "Unable to move/copy messages"
+msgid "Unable to edit delegates."
+msgstr "Nevar rediģēt pārstāvjus."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
+msgid "Unable to add user to access control list:"
+msgstr "Nevar pievienot lietotāju pieejas kontroles sarakstam:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:61
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not read folder permissions."
+msgstr "Nevarēja nolasīt mapes atļaujas."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not read folder permissions"
+msgstr "Nevarēja nolasīt mapes atļaujas"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:63
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not determine folder permissions for delegates."
+msgstr "Nevarēja noteikt mapes atļaujas delegātiem."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:64
+#| msgid "Could not append message"
+msgid "Could not make {0} a delegate"
+msgstr "Nevarēja padarīt {0} par pārstāvi"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:65
+msgid "You cannot make yourself your own delegate"
+msgstr "Jūs nevarat nozīmēt pats sevi par savu pārstāvi"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:66
+msgid "{0} is already a delegate"
+msgstr "{0} jau ir pārstāvis"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
+msgid "Failed to update delegates:"
+msgstr "Neizdevās atjaunināt pārstāvjus:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
+msgid "{0}"
+msgstr "{0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
+msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
+msgstr ""
+"Lūdzu, ievadiet pārstāvja ID vai atceliet “Sūtīt kā pārstāvis” opcijas "
+"izvēli."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
+msgid ""
+"You are permitted to send a message on behalf of only one delegator at a "
+"time."
+msgstr "Jums ir ļauts sūtīt vēstuli tikai viena cita deleģētāja vārdā."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
+msgid "Please select a user."
+msgstr "Lūdzu, izvēlieties lietotāju."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not update folder permissions."
+msgstr "Nevarēja atjaunināt mapes atļaujas."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
+#| msgid "No such folder %s"
+msgid "No such user {0}"
+msgstr "Nav tāda lietotāja {0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
+msgid "{0} cannot be added to an access control list"
+msgstr "Nevar pievienot {0} piekļuves kontroles sarakstam"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
+msgid "Unknown error looking up {0}"
+msgstr "Gadījās nezināma kļūda, uzmeklējot {0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
+msgid "{0} is already in the list"
+msgstr "{0} jau ir sarakstā"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
+msgid "Evolution requires a restart to load the subscribed user's mailbox"
+msgstr ""
+"Evolution pieprasa pārstartēšanu, lai ielādētu abonētā lietotāja pastkasti"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
+#| msgid "Folder doesn't exist"
+msgid "Folder does not exist"
+msgstr "Mape neeksistē"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
+#| msgid "Unknown"
+msgid "Unknown type"
+msgstr "Nezināms tips"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
+#| msgid "Folder owner"
+msgid "Folder offline"
+msgstr "Mape ir nesaistē"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
+msgid "Unsupported operation"
+msgstr "Neatbalstīta darbība"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+#| msgid "_Global Catalog server name:"
+msgid "Global Catalog Server is not reachable"
+msgstr "Globālā kataloga serveris nav sasniedzams"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
+msgid "Please make sure the Global Catalog Server name is correct."
+msgstr ""
+"Lūdzu, pārliecinieties, ka globālā kataloga servera nosaukums ir pareizs."
+
+#: ../server/lib/e2k-autoconfig.c:1734
+#: ../server/storage/exchange-account.c:988
+#, c-format, c-format
+#| msgid "%sEnter password for %s"
+msgid "Enter password for %s"
+msgstr "Ievadiet %s paroli"
+
+#: ../server/lib/e2k-autoconfig.c:1735
+#: ../server/storage/exchange-account.c:993
+#| msgid "%sEnter password for %s"
+msgid "Enter password"
+msgstr "Ievadiet paroli"
+
+#. i18n: These are Outlook's words for the default roles in
+#. * the folder permissions dialog.
+#: ../server/lib/e2k-security-descriptor.c:858
+msgid "Owner"
+msgstr "Īpašnieks"
+
+#: ../server/lib/e2k-security-descriptor.c:868
+msgid "Publishing Editor"
+msgstr "Publicējošs redaktors"
+
+#: ../server/lib/e2k-security-descriptor.c:876
+#| msgid "_Edit"
+msgid "Editor"
+msgstr "Redaktors"
+
+#: ../server/lib/e2k-security-descriptor.c:883
+msgid "Publishing Author"
+msgstr "Publicējošs autors"
+
+#: ../server/lib/e2k-security-descriptor.c:889
+msgid "Author"
+msgstr "Autors"
+
+#: ../server/lib/e2k-security-descriptor.c:894
+msgid "Non-editing Author"
+msgstr "Nerediģējošs autors"
+
+#: ../server/lib/e2k-security-descriptor.c:898
+msgid "Reviewer"
+msgstr "Recenzents"
+
+#: ../server/lib/e2k-security-descriptor.c:900
+msgid "Contributor"
+msgstr "Līdzstrādnieks"
+
+#: ../server/storage/e-storage.c:556
+msgid "No error"
+msgstr "Nav kļūdu"
+
+#: ../server/storage/e-storage.c:560
+#| msgid "Folder already exists"
+msgid "A folder with the same name already exists"
+msgstr "Mape ar tādu pašu nosaukumu jau eksistē"
+
+#: ../server/storage/e-storage.c:562
+msgid "The specified folder type is not valid"
+msgstr "Norādītais mapes tips ir nav derīgs"
+
+#: ../server/storage/e-storage.c:564
+msgid "I/O error"
+msgstr "I/O kļūda"
+
+#: ../server/storage/e-storage.c:566
+#| msgid "Could not create folder."
+msgid "Not enough space to create the folder"
+msgstr "Nepietiek vietas, lai izveidotu mapi"
+
+#: ../server/storage/e-storage.c:568
+msgid "The folder is not empty"
+msgstr "Mape nav tukša"
+
+#: ../server/storage/e-storage.c:570
+msgid "The specified folder was not found"
+msgstr "Norādītā mape netika atrasta"
+
+#: ../server/storage/e-storage.c:572
+msgid "Function not implemented in this storage"
+msgstr "Šai krātuvei funkcija nav realizēta"
+
+#: ../server/storage/e-storage.c:576
+msgid "Operation not supported"
+msgstr "Darbība nav atbalstīta"
+
+#: ../server/storage/e-storage.c:578
+msgid "The specified type is not supported in this storage"
+msgstr "Krātuve neatbalsta norādīto tipu"
+
+#: ../server/storage/e-storage.c:580
+msgid "The specified folder cannot be modified or removed"
+msgstr "Norādīto mapi nevar mainīt vai izņemt"
+
+#: ../server/storage/e-storage.c:582
+msgid "Cannot make a folder a child of one of its descendants"
+msgstr "Mapi nevar padarīt par savu pēcteču bērnu"
+
+#: ../server/storage/e-storage.c:584
+#| msgid "Cannot create folder in offline mode."
+msgid "Cannot create a folder with that name"
+msgstr "Nevar izveidot mapi ar šādu nosaukumu"
+
+#: ../server/storage/e-storage.c:586
+#| msgid "You cannot expunge in offline mode."
+msgid "This operation cannot be performed in offline mode"
+msgstr "Šo darbību nevar veikt nesaistes režīmā"
+
+#: ../server/storage/e-storage.c:588
+#| msgid "Unknown"
+msgid "Unknown error"
+msgstr "Nezināma kļūda"
+
+#. i18n: This is the title of an "other user's folders"
+#. * hierarchy. Eg, "John Doe's Folders".
+#: ../server/storage/exchange-account.c:665
+#, c-format
+msgid "%s's Folders"
+msgstr "%s mapes"
+
+#: ../server/storage/exchange-account.c:1325
+#| msgid "Create subfolders"
+msgid "Favorite Public Folders"
+msgstr "Iecienītās publiskās mapes"
+
+#. i18n: Outlookism
+#: ../server/storage/exchange-account.c:1342
+msgid "All Public Folders"
+msgstr "Visas publiskās mapes"
+
+#. i18n: Outlookism
+#: ../server/storage/exchange-account.c:1356
+#| msgid "Global Address List / Active Directory"
+msgid "Global Address List"
+msgstr "Globāls adrešu saraksts"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:266
+#| msgid "Delete Any Items"
+msgid "Deleted Items"
+msgstr "Dzēstie vienumi"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:267
+msgid "Drafts"
+msgstr "Melnraksti"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:269
+msgid "Journal"
+msgstr "Žurnāls"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:270
+#| msgid "None"
+msgid "Notes"
+msgstr "Piezimes"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:271
+msgid "Outbox"
+msgstr "Izsūtne"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:272
+#| msgid "Create items"
+msgid "Sent Items"
+msgstr "Sūtītie vienumi"
+
+#: ../tools/exchange-autoconfig-wizard.c:193
+msgid "Welcome"
+msgstr "Laipni lūdzam"
+
+#: ../tools/exchange-autoconfig-wizard.c:193
+#| msgid ""
+#| "Welcome to Ximian Connector for Microsoft Exchange.\n"
+#| "The next few screens will help you configure Evolution\n"
+#| "to connect to your Exchange account.\n"
+#| "\n"
+#| "Please click the \"Forward\" button to continue."
+msgid ""
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
+"The next few screens will help you configure Evolution\n"
+"to connect to your Exchange account.\n"
+"\n"
+"Please click the \"Forward\" button to continue."
+msgstr ""
+"Laipni lūdzam uz Evolution Connector Microsoft Exchange sistēmai.\n"
+"Nākošie ekrāni palīdzēs jums nokonfigurēt Evolution,\n"
+"lai tas varētu savienoties ar Exchange kontu.\n"
+"\n"
+"Spiediet uz pogas “Tālāk”, lai turpinātu."
+
+#: ../tools/exchange-autoconfig-wizard.c:208
+#: ../tools/exchange-autoconfig-wizard.c:384
+#: ../tools/exchange-autoconfig-wizard.c:477
+msgid "Exchange Configuration"
+msgstr "Exchange konfigurācija"
+
+#: ../tools/exchange-autoconfig-wizard.c:208
+#| msgid ""
+#| "Ximian Connector can use account information from your existing Outlook "
+#| "Web Access (OWA) account.\n"
+#| "\n"
+#| "Enter your OWA site address (URL), username, and password, then click "
+#| "\"Forward\".\n"
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Evolution Connector var izmantot konta informāciju no esoša Outlook Web "
+"Access (OWA) konta.\n"
+"\n"
+"Ievadiet savu OWA vietnes adresi (URL), lietotāja vārdu un paroli, un "
+"spiediet “Tālāk”.\n"
+
+#: ../tools/exchange-autoconfig-wizard.c:216
+#| msgid "OWA URL:"
+msgid "OWA _URL:"
+msgstr "OWA _URL:"
+
+#: ../tools/exchange-autoconfig-wizard.c:220
+#| msgid "Username:"
+msgid "User_name:"
+msgstr "_Lietotājvārds:"
+
+#: ../tools/exchange-autoconfig-wizard.c:224
+#| msgid "Password:"
+msgid "_Password:"
+msgstr "_Parole:"
+
+#: ../tools/exchange-autoconfig-wizard.c:229
+#| msgid "Remember this password"
+msgid "_Remember this password"
+msgstr "Atce_rēties šo paroli"
+
+#: ../tools/exchange-autoconfig-wizard.c:302
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
-"Nevaru pievienoties Exchange serverīm.\n"
-" Pārliecinieties ka URL ir pareizs (izmēģināt \"%s\" \"%s\" vietā? )un "
-"mēģiniet vēlreiz."
+"Nevar savienoties ar Exchange serveri.\n"
+"Pārliecinieties, ka URL ir pareizs (izmēģināt “%s” “%s” vietā? ) un mēģiniet "
+"vēlreiz."
 
-#: ../storage/exchange-autoconfig-wizard.c:219
+#: ../tools/exchange-autoconfig-wizard.c:310
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
-"Nevaru atrast Exchange serveri.\n"
-"Pārliecinieties ka servera nosaukums ir uzrakstīts pareizi un mēģiniet "
+"Nevar atrast Exchange serveri.\n"
+"Pārliecinieties, ka servera nosaukums ir uzrakstīts pareizi un mēģiniet "
 "vēlreiz."
 
-#: ../storage/exchange-autoconfig-wizard.c:228
+#: ../tools/exchange-autoconfig-wizard.c:319
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
-"Nevaru autentificēties Exchange serverī.\n"
-"Pārliecinieties ka lietotāja vārds un parole ir pareizas un mēģiniet vēlreiz."
+"Nevar autentificēties Exchange serverī.\n"
+"Pārliecinieties, ka lietotājvārds un parole ir pareizas un mēģiniet vēlreiz."
 
-#: ../storage/exchange-autoconfig-wizard.c:235
+#: ../tools/exchange-autoconfig-wizard.c:326
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -455,527 +1818,320 @@ msgid ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
-"Nevaru autentificēties  Exchange serverī.\n"
-"Pārliecinietites ka lietotāja vārds un parole ir pareizas un mēģiniet "
-"vēlreiz.\n"
-"Jums varbūt vajadzēs detalizēt Windows domāna vārdu kā daļu no Jūsu "
-"lietotājā vārda (piemērām, \"MY-DOMAIN\\%s\")."
+"Nevar autentificēties  Exchange serverī.\n"
+"Pārliecinieties, ka lietotājvārds un parole ir pareizas un mēģiniet vēlreiz.\n"
+"\n"
+"Jums varbūt vajadzēs detalizēt Windows domēna nosaukumu kā daļu no jūsu "
+"lietotājvārda (piemēram, “MANS-DOMENS\\%s”)."
 
-#: ../storage/exchange-autoconfig-wizard.c:247
+#: ../tools/exchange-autoconfig-wizard.c:338
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
-"Nevaru atrast OWA datus norādītā URL.\n"
-"Pārliecinieties ka URL ir pareizs un mēģīniet vēlreiz."
+"Nevar atrast OWA datus norādītā URL.\n"
+"Pārliecinieties, ka URL ir pareizs un mēģiniet vēlreiz."
 
-#: ../storage/exchange-autoconfig-wizard.c:254
+#: ../tools/exchange-autoconfig-wizard.c:344
+#| msgid ""
+#| "Ximian Connector requires access to certain functionality on the Exchange "
+#| "Server that appears to be disabled or blocked.  (This is usually "
+#| "unintentional.)  Your Exchange Administrator will need to enable this "
+#| "functionality in order for you to be able to use Ximian Connector.\n"
+#| "\n"
+#| "For information to provide to your Exchange administrator, please follow "
+#| "the link below:"
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian savienotājs pieprasa pieeju noteiktai funkcionalitātei Exchange "
-"serverī kas rādās ir atslēgta vai bloķēta. (Tas parasti ir bez iepriekšēja "
-"nodoma.) Jūsu  Exchange administrātoram vajadzēs ieslēgt šo funkcionalitāti, "
-"lai Jūs varētu izmantot Ximian savienotājus.\n"
+"Evolution Connector pieprasa pieeju noteiktai funkcionalitātei Exchange "
+"serverī, kas rādās ir deaktivēta vai bloķēta. (Tas parasti ir bez "
+"iepriekšēja nodoma.) Jūsu  Exchange administratoram vajadzēs aktivēt šo "
+"funkcionalitāti, lai jūs varētu izmantot Evolution Connector.\n"
 "\n"
-"Jūsu  Exchange administrātora nodrošināšanai ar informāciju sekojiet saitei "
-"zemāk:"
+"Lai saņemtu informāciju, ko nodot savam Exchange administratoram, sekojiet "
+"saitei zemāk:"
 
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../tools/exchange-autoconfig-wizard.c:357
+#| msgid ""
+#| "The Exchange server URL you provided is for an Exchange 5.5 Server. "
+#| "Ximian Connector supports Microsoft Exchange 2000 and 2003 only."
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
 msgstr ""
-"Apmaiņas servera URL, kuru Jūs iedevāt, ir domāts Exchange 5.5 serverīm. "
-"Ximian savienotāji atbalsta tikai Microsoft Exchange 2000 un 2003."
+"Exchange servera URL, kuru iedevāt, ir domāts Exchange 5.5 serverim. "
+"Evolution Connector atbalsta tikai Microsoft Exchange 2000 un 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../tools/exchange-autoconfig-wizard.c:365
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"Nevaru nokonfigurēt  Exchange kontu, tāpēc kā parādījas nezināma kļūda. "
-"Pārbaudiet URL, lietotāja vārdu un paroli un mēģiniet vēlreiz."
+"Nevar nokonfigurēt  Exchange kontu, jo gadījās nezināma kļūda. Pārbaudiet "
+"URL, lietotāja vārdu un paroli un mēģiniet vēlreiz."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../tools/exchange-autoconfig-wizard.c:384
+#| msgid ""
+#| "Ximian Connector could not find the Global Catalog replica for your site. "
+#| "Please enter the name of your Global Catalog server. You may need to ask "
+#| "your system administrator for the correct value.\n"
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value."
+msgstr ""
+"Evolution Connector nevar atrast globāla kataloga atdarinājumu jūsu vietnei. "
+"Lūdzu, ievadiet globāla kataloga servera nosaukumu. Iespējams, ka jums "
+"vajadzēs pajautāt sistēmas administratoram pareizo vērtību."
+
+#: ../tools/exchange-autoconfig-wizard.c:392
+#| msgid "GC Server:"
+msgid "GC _Server:"
+msgstr "GK _serveris:"
+
+#: ../tools/exchange-autoconfig-wizard.c:425
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
 msgstr ""
-"Nevaru autentificēties Globālo Katalogu serverī Jums vajadzēs atgriezties un "
-"detalizēt Windovs domēna vārdu kā daļu no Jūsu lietotāju vārda (Piemēram, "
-"\"MY-DOMAIN\\%s\")."
+"Nevar autentificēties globālo katalogu serverī. Jums vajadzēs atgriezties un "
+"norādīt Windows domēna nosaukumu kā daļu no jūsu lietotāju vārda (piemēram, "
+"“MANS-DOMENS\\%s”)."
 
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../tools/exchange-autoconfig-wizard.c:432
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
-"NBevaru pievienoties norādītām serverim.\n"
-" Lūdzu, pārbaudiet servera nosaukumu un mēģiniet vēlreiz."
+"Nevar savienoties ar norādīto serveri.\n"
+"Lūdzu, pārbaudiet servera nosaukumu un mēģiniet vēlreiz."
 
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../tools/exchange-autoconfig-wizard.c:447
+msgid "Configuration Failed"
+msgstr "Konfigurācija neizdevās"
+
+#: ../tools/exchange-autoconfig-wizard.c:447
+#| msgid ""
+#| "Ximian Connector has encountered a problem configuring your Exchange "
+#| "account.\n"
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account."
+msgstr ""
+"Evolution Connector savienotājs sastapās ar problēmu, konfigurējot jūsu "
+"Exchange kontu."
+
+#: ../tools/exchange-autoconfig-wizard.c:477
+#| msgid ""
+#| "Your account information is as follows. Please correct any errors, then "
+#| "click \"Forward\".\n"
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\"."
+msgstr ""
+"Jūsu konta informācija ir sekojoša. Lūdzu, izlabojiet kļūdas un spiediet "
+"“Tālāk”."
+
+#: ../tools/exchange-autoconfig-wizard.c:485
+#| msgid "Full Name:"
+msgid "Full _Name:"
+msgstr "Pilns _vārds:"
+
+#: ../tools/exchange-autoconfig-wizard.c:489
+#| msgid "Email Address:"
+msgid "_Email Address:"
+msgstr "_E-pasta adrese:"
+
+#: ../tools/exchange-autoconfig-wizard.c:493
+#| msgid "Make this my default account"
+msgid "Make this my _default account"
+msgstr "Iestatīt šo par _manu noklusējuma kontu"
+
+#: ../tools/exchange-autoconfig-wizard.c:510
+#: ../tools/exchange-autoconfig-wizard.c:514
 msgid "Unknown"
 msgstr "Nezināms"
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../tools/exchange-autoconfig-wizard.c:540
+msgid "Done"
+msgstr "Pabeigts"
+
+#: ../tools/exchange-autoconfig-wizard.c:540
+#| msgid ""
+#| "Your Connector account is now ready to use. Click the \"Apply\" button to "
+#| "save your\n"
+#| "settings."
+msgid ""
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your settings."
+msgstr ""
+"Jūsu Connector konts ir gatavs izmantošanai. Spiediet pogu “Pielietot”, lai "
+"saglabāt savus iestatījumus."
+
+#: ../tools/exchange-autoconfig-wizard.c:589
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "Sistēmas konfigurācijas kļūda.\n"
-"Nevaru izveidot jaunu kontu."
+"Nevar izveidot jaunu kontu."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../tools/exchange-autoconfig-wizard.c:604
 msgid "You may only configure a single Exchange account"
-msgstr "Jūs varat nokonfigurēt vienu  Exchange kontu"
+msgstr "Jūs varat nokonfigurēt tikai vienu Exchange kontu"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
+#: ../tools/exchange-autoconfig-wizard.c:787
+#| msgid "Ximian Connector for Microsoft Exchange"
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Evolution Connector priekš Microsoft Exchange konfigurācija"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:2
-msgid "Configuration Failed"
-msgstr "Konfigurācija neizdevas"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:3
-msgid "Done"
-msgstr "Pabeigts"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:4
-msgid "Email Address:"
-msgstr "E-pasta adrese:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:5
-msgid "Exchange Configuration"
-msgstr "Apmaiņas konfigurācija"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
-msgid "Full Name:"
-msgstr "Pilns vārds:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
-msgid "GC Server:"
-msgstr "GC Serveris:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
-msgid "Make this my default account"
-msgstr "Uzstādiet šo kontu par noklusēto"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
-msgid "OWA URL:"
-msgstr "OWA URL:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
-msgid "Password:"
-msgstr "Parole:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
-msgid "Remember this password"
-msgstr "Atcerēties šo paroli"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
-msgid "Username:"
-msgstr "Lietotāja vārds:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
-msgid "Welcome"
-msgstr "Laipni lūdzam"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
-msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
-"The next few screens will help you configure Evolution\n"
-"to connect to your Exchange account.\n"
-"\n"
-"Please click the \"Forward\" button to continue."
-msgstr ""
-"Laipni lūdzam uz Ximian savienotāju priekš Microsoft Exchange.\n"
-"Nākošie ekrānattēli pālīdzēs Jums nokonfigurēt Evolution \n"
-" savienošanai ar Jūsu  Exchange kontu.\n"
-"\n"
-"Lūdzu uzklikšķiniet uz pogas 'Tālāk' turpināsanai."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Ximian savienotāju konfigurācija"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Ximian Savienotāji var izmantot konta informāciju no Jūsu eksistējoša "
-"Outlook Web Access (OWA) konta.\n"
-"\n"
-"Ievadiet Jūsu OWA saita adresi (URL), lietotāja vārdu un paroli, un "
-"nospiediet \"Tālāk\".\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"Ximian savienotājs nevar atrast Globāla Kataloga atdarinājumu priekš Jūsu "
-"saita. Lūdzu ievadiet Globāla Kataloga servera nosaukumu. Jums varbūt "
-"vajadzēs pajautāt sistēmas administratoram pareizo vērtība.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr "Ximian savienotājs sastopas ar problēmu konfigurējot Jūsu Exchange kontu.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:28
-msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to "
-"save your\n"
-"settings."
-msgstr ""
-"Jūsu savienotāja konts ir gatavs izmantošanai.Uzklikšķiniet uz \"Pielietot\" "
-"pogas lai saglabāt Jūsu\n"
-" uzstādījumus."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid ""
-"Your account information is as follows. Please correct any errors, then "
-"click \"Forward\".\n"
-msgstr ""
-"Jūsu konta informācija ir sekojoša. Lūdzu izlabojiet kļūdas un nospiediet "
-"\"Tālāk\".\n"
-
-#. User entered a wrong existing
-#. * password. Prompt him again.
-#.
-#: ../storage/exchange-change-password.c:114
-msgid ""
-"The current password does not match the existing password for your account. "
-"Please enter the correct password"
-msgstr ""
-"Tekoša parole neskrīt ar eksistējošo paroli no Jūsu konta. Lūdzu ievadiet "
-"pareizo paroli"
-
-#: ../storage/exchange-change-password.c:121
-msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr "Abas paroles neskrīt. Lūdzu ievadiet vēlreiz paroles."
-
-#: ../storage/exchange-change-password.glade.h:2
-msgid "Change Password"
-msgstr "Mainīt paroli "
-
-#: ../storage/exchange-change-password.glade.h:3
-msgid "Confirm Password:"
-msgstr "Apstiprināt paroli:"
-
-#: ../storage/exchange-change-password.glade.h:4
-msgid "Current Password:"
-msgstr "Tekoša parole:"
-
-#: ../storage/exchange-change-password.glade.h:5
-msgid "New Password:"
-msgstr "Jauna parole:"
-
-#: ../storage/exchange-change-password.glade.h:6
-msgid "Your current password has expired. Please change your password now."
-msgstr "Jūsu tekoša parole izbeidzas. Lūdzu nomainiet Jūsu paroli tagad."
-
-#: ../storage/exchange-delegates.glade.h:1
-msgid "Author (read, create)"
-msgstr "Autors(lasīt, izveidot)"
-
-#: ../storage/exchange-delegates.glade.h:2
-msgid "C_alendar:"
-msgstr "K_alendārs:"
-
-#: ../storage/exchange-delegates.glade.h:3
-msgid "Co_ntacts:"
-msgstr "Ko_ntakti:"
-
-#: ../storage/exchange-delegates.glade.h:4
-msgid "Delegate Permissions"
-msgstr "Pārstāvju tiesības"
-
-#: ../storage/exchange-delegates.glade.h:5
-msgid "Delegates"
-msgstr "Pārstāvi"
-
-#: ../storage/exchange-delegates.glade.h:6
-msgid "Editor (read, create, edit)"
-msgstr "Redaktors (lasīt, izveidot, rediģēt)"
-
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "Neviens"
-
-#: ../storage/exchange-delegates.glade.h:8
-msgid "Permissions for"
-msgstr "Tiesības priekš"
-
-#: ../storage/exchange-delegates.glade.h:9
-msgid "Reviewer (read-only)"
-msgstr "Skatītājs (tikai lasīt)"
-
-#: ../storage/exchange-delegates.glade.h:10
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"Šie litotāji varēs nosūtīt pastu no Jūsu vārda \n"
-" un piekļūt Jūsu mapēm ar tiesībām, kuras Jūs viņiem dosiet."
-
-#: ../storage/exchange-delegates.glade.h:12
-msgid "_Delegate can see private items"
-msgstr "_Pārstāvis varēs redzēt privātus elementus"
-
-#: ../storage/exchange-delegates.glade.h:13
-msgid "_Edit"
-msgstr "_Rediģēt"
-
-#: ../storage/exchange-delegates.glade.h:14
-msgid "_Inbox:"
-msgstr "_Iesūtne:"
-
-#: ../storage/exchange-delegates.glade.h:15
-msgid "_Tasks:"
-msgstr "_Uzdevumi:"
-
-#: ../storage/exchange-folder-tree.glade.h:1
-msgid "Exchange Folder Tree"
-msgstr "Apmaiņas mapes koks"
-
-#: ../storage/exchange-migrate.c:58
-msgid "Migrating Exchange Folders..."
-msgstr "Pārceļu Exchange mapes..."
-
-#: ../storage/exchange-migrate.c:66
-#, c-format
-msgid ""
-"The location and hierarchy of the Evolution exchange account folders are "
-"changed since Evolution %d.%d.%d.\n"
-"\n"
-"Please be patient while Evolution migrates your folders..."
-msgstr ""
-"Evolution Exchange konta mapju atrašanas vieta un hierarhija mainījās kopš "
-"Evolution %d.%d.%d.\n"
-"\n"
-"Lūdzu neesat nepacietīgs kamēr Evolution pārcels Jūsu mapes..."
-
-#: ../storage/exchange-migrate.c:99
-#, c-format
-msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the "
-"version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of "
-"Evolution"
-msgstr ""
-"Brīdinājums: Evolution nevar pārcelt visus Apmaiņas konta datus no versijas %"
-"d.%d.%d. \n"
-"Dati netika dzēsti, bet nebūs redzami šajā Evolution versijā"
-
-#: ../storage/exchange-migrate.c:130
-#, c-format
-msgid "Migrating `%s':"
-msgstr "Pārceļu `%s':"
-
-#: ../storage/exchange-oof.glade.h:1
-msgid ""
-"<b>Currently, your status is \"Out of the Office\". </b>\n"
-"\n"
-"Would you like to change your status to \"In the Office\"? "
-msgstr ""
-"<b> Tekošs statuss ir \"Ārpus birojas\". </b>\n"
-"\n"
-"Vai Jūs gribētu nomainīt Jūsu statusu uz  \"Birojā\"? "
-
-#: ../storage/exchange-oof.glade.h:4
-msgid "<b>Out of Office Message:</b>"
-msgstr "<b>Ārpus birojas:</b>"
-
-#: ../storage/exchange-oof.glade.h:5
-msgid "<b>Status:</b>"
-msgstr "<b>Statuss:</b>"
-
-#: ../storage/exchange-oof.glade.h:6
-msgid ""
-"<small>The message specified below will be automatically sent to each person "
-"who sends\n"
-"mail to you while you are out of the office.</small>"
-msgstr ""
-"<small> Ziņojums aprakstīts zemāk tiks automatiski nosūtīts katrai personai, "
-"kas nosūtīs Jums pastu \n"
-" kamēr Jūs busiet ārpus birojas.</small>"
-
-#: ../storage/exchange-oof.glade.h:8
-msgid "I am currently in the office"
-msgstr "Es esmu birojā"
-
-#: ../storage/exchange-oof.glade.h:9
-msgid "I am currently out of the office"
-msgstr "Es esmu ārpus birojas"
-
-#: ../storage/exchange-oof.glade.h:10
-msgid "No, Don't Change Status"
-msgstr "Nē, nevajag mainīt statusu"
-
-#: ../storage/exchange-oof.glade.h:11
-msgid "Out of Office Assistant"
-msgstr "Ārpus birojas palīgs"
-
-#: ../storage/exchange-oof.glade.h:12
-msgid "Yes, Change Status"
-msgstr "Jā, Mainiet statusu"
-
-#: ../storage/exchange-passwd-expiry.glade.h:1
-msgid "Password Expiry Warning..."
-msgstr "Paroles termiņa izbeigšanās brīdinājums..."
-
-#: ../storage/exchange-passwd-expiry.glade.h:2
-msgid "Your password will expire in 7 days..."
-msgstr "Jūsu parole izbeigsies pēc 7 dienām..."
-
-#: ../storage/exchange-passwd-expiry.glade.h:3
-msgid "_Change Password"
-msgstr "_Mainīt paroli"
-
-#: ../storage/exchange-passwd-expiry.glade.h:4
-msgid "ok_button"
-msgstr "OK_poga"
-
-#: ../storage/exchange-permissions-dialog.glade.h:1
-msgid "    "
-msgstr "    "
-
-#: ../storage/exchange-permissions-dialog.glade.h:2
-msgid "<b>Permissions</b>"
-msgstr "<b> Tiesības</b>"
-
-#: ../storage/exchange-permissions-dialog.glade.h:3
-msgid "Cannot Delete"
-msgstr "Nevaru nodzēst"
-
-#: ../storage/exchange-permissions-dialog.glade.h:4
-msgid "Cannot Edit"
-msgstr "Nevaru rediģēt"
-
-#: ../storage/exchange-permissions-dialog.glade.h:5
-msgid "Create items"
-msgstr "Izveidot elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:6
-msgid "Create subfolders"
-msgstr "Izveidot apakšmapes"
-
-#: ../storage/exchange-permissions-dialog.glade.h:7
-msgid "Delete Any Items"
-msgstr "Dzēst jebkurus elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:8
-msgid "Delete Own Items"
-msgstr "Dzēst savus elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:9
-msgid "Edit Any Items"
-msgstr "Rediģēt jebkurus elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:10
-msgid "Edit Own Items"
-msgstr "Rediģēt savus elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:11
-msgid "Folder contact"
-msgstr "Mapes saskare"
-
-#: ../storage/exchange-permissions-dialog.glade.h:12
-msgid "Folder owner"
-msgstr "Mapes īpašnieks"
-
-#: ../storage/exchange-permissions-dialog.glade.h:13
-msgid "Folder visible"
-msgstr "Mapes redzamība"
-
-#: ../storage/exchange-permissions-dialog.glade.h:14
-msgid "Read items"
-msgstr "Lasīšanas elementi"
-
-#: ../storage/exchange-permissions-dialog.glade.h:15
-msgid "Role: "
-msgstr "Loma: "
-
-#: ../storage/exchange-storage.c:338
-msgid "Connecting..."
-msgstr "Pievienojos..."
-
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Ximian savienotājs priekš Microsoft Exchange"
-
-#: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Ximian savienotājs priekš Microsoft Exchange uzstādīšanas darba rīka"
-
-#: ../storage/ximian-connector.xml.h:1
+#: ../tools/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
-msgstr "Mainīt Jūsu Exchange servera paroli"
+msgstr "Mainīt sava Exchange servera paroli"
 
-#: ../storage/ximian-connector.xml.h:2
-msgid "Folder _Size"
-msgstr "Mapes _Izmērs"
-
-#: ../storage/ximian-connector.xml.h:3
-msgid "Get the size of personal folders"
-msgstr "Dabūt personīgo mapju izmēru"
-
-#: ../storage/ximian-connector.xml.h:4
-msgid "Subscribe to _Other User's Folder..."
-msgstr "Parakstīties uz _cita lietotāja mapi..."
-
-#: ../storage/ximian-connector.xml.h:5
-msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr "Parakstīties uz mapi, kas pieder citam lietotājam uz šī servera"
-
-#: ../storage/ximian-connector.xml.h:6
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr ""
-"Atteikt parakstīšanu uz mapi, kas tika pievienota ar \"Parakstīties uz cita "
-"lietotāja mapi\""
-
-#: ../storage/ximian-connector.xml.h:7
-msgid "View or change your Exchange calendar delegation settings"
-msgstr "Paskatīties vai mainīt Jūsu Exchange kalendāra pārstāvju uzstādījumus"
-
-#: ../storage/ximian-connector.xml.h:8
-msgid "View or change your Out-of-Office status and autoreply message"
-msgstr ""
-"Paskatīties vai mainīt Jūsu Ārpus birojas statusu un automatiskās atbildes "
-"ziņojumu"
-
-#: ../storage/ximian-connector.xml.h:9
+#: ../tools/ximian-connector.xml.h:2
 msgid "_Change Exchange Password..."
 msgstr "_Mainīt Exchange paroli..."
 
-#: ../storage/ximian-connector.xml.h:10
+#: ../tools/ximian-connector.xml.h:3
+msgid "Subscribe to a folder belonging to some other user on the server"
+msgstr "Abonēt uz mapi, kas pieder citam lietotājam uz šī servera"
+
+#: ../tools/ximian-connector.xml.h:4
+msgid "Subscribe to _Other User's Folder..."
+msgstr "Abonēt  _cita lietotāja mapi..."
+
+#: ../tools/ximian-connector.xml.h:5
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr ""
+"Atcelt abonēšanu mapei, kas tika pievienota ar \"Abonēt  cita lietotāja mapi\""
+
+#: ../tools/ximian-connector.xml.h:6
+msgid "_Unsubscribe from Other User's Folder"
+msgstr "_Atcelt cita lietotāja mapes abonēšanu"
+
+#: ../tools/ximian-connector.xml.h:7
+msgid "Get the size of personal folders"
+msgstr "Saņemt personīgo mapju izmēru"
+
+#: ../tools/ximian-connector.xml.h:8
+msgid "Folder _Size"
+msgstr "Mape_s izmērs"
+
+#: ../tools/ximian-connector.xml.h:9
+msgid "View or change your Out-of-Office status and autoreply message"
+msgstr ""
+"Skatīt vai mainīt savu “Ārpus biroja” statusu un automātiskās atbildes "
+"vēstuli"
+
+#: ../tools/ximian-connector.xml.h:10
+msgid "_Out of Office Assistant"
+msgstr "“Ārpus bir_oja” palīgs"
+
+#: ../tools/ximian-connector.xml.h:11
+msgid "View or change your Exchange calendar delegation settings"
+msgstr "Skatīt vai mainīt savu Exchange kalendāra pārstāvju iestatījumus"
+
+#: ../tools/ximian-connector.xml.h:12
 msgid "_Delegation Assistant"
 msgstr "_Pārstāvju palīgs"
 
-#: ../storage/ximian-connector.xml.h:11
-msgid "_Out of Office Assistant"
-msgstr "_Ārpus birojas palīgs"
+#~ msgid ""
+#~ "Unable to schedule resource '%s' for recurring meetings.\n"
+#~ "You must book each meeting separately."
+#~ msgstr ""
+#~ "Nevaru ieplānot atkārtotas tikšanas resursu '%s'. Jums vajag ieplānot katru "
+#~ "tikšanos atsevišķi."
 
-#: ../storage/ximian-connector.xml.h:12
-msgid "_Unsubscribe from Other User's Folder"
-msgstr "_Atteikt Parakstīsanu no cita lietotājl mapes"
+#~ msgid "Evolution Exchange backend process"
+#~ msgstr "Evolution Exchange aizmugurējais process"
 
+#~ msgid "Exchange transport can only be used with Exchange mail source"
+#~ msgstr "Apmaiņas pārvadājumus var izmantot tikai ar Exchange pasta avotu"
+
+#~ msgid "Could not connect to %s: Please restart Evolution"
+#~ msgstr "Nevaru pieslēgties %s: Lūdzu pārstartējiet Evolution"
+
+#~ msgid "Path too long: %s"
+#~ msgstr "Ceļš ir pārāk garš: %s"
+
+#~ msgid "Could not start status thread: %s"
+#~ msgstr "Nevaru sākt statusa pavedienu: %s"
+
+#~ msgid "Lost connection to %s"
+#~ msgstr "Pazaudēts pieslēgums uz %s"
+
+#~ msgid "Error communicating with %s: %s"
+#~ msgstr "Kļūda sazinājoties ar %s: %s"
+
+#~ msgid "Evolution Addressbook Exchange backend"
+#~ msgstr "Evolution adrešu grāmatiņas apmaiņa aizmugurē"
+
+#~ msgid "Evolution Calendar Exchange backend"
+#~ msgstr "Evolution kalendāra apmaiņa aizmugurē"
+
+#~ msgid "Ximian Connector for Exchange"
+#~ msgstr "Ximian savienotājs priekš Exchange"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Ximian Connector Configuration"
+#~ msgstr "Ximian savienotāju konfigurācija"
+
+#~ msgid "Migrating Exchange Folders..."
+#~ msgstr "Pārceļu Exchange mapes..."
+
+#~ msgid ""
+#~ "The location and hierarchy of the Evolution exchange account folders are "
+#~ "changed since Evolution %d.%d.%d.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your folders..."
+#~ msgstr ""
+#~ "Evolution Exchange konta mapju atrašanas vieta un hierarhija mainījās kopš "
+#~ "Evolution %d.%d.%d.\n"
+#~ "\n"
+#~ "Lūdzu neesat nepacietīgs kamēr Evolution pārcels Jūsu mapes..."
+
+#~ msgid ""
+#~ "Warning: Evolution could not migrate all the Exchange account data from "
+#~ "the version %d.%d.%d. \n"
+#~ "The data hasn't been deleted, but will not be seen by this version of "
+#~ "Evolution"
+#~ msgstr ""
+#~ "Brīdinājums: Evolution nevar pārcelt visus Apmaiņas konta datus no versijas "
+#~ "%d.%d.%d. \n"
+#~ "Dati netika dzēsti, bet nebūs redzami šajā Evolution versijā"
+
+#~ msgid "Migrating `%s':"
+#~ msgstr "Pārceļu `%s':"
+
+#~ msgid "<b>Out of Office Message:</b>"
+#~ msgstr "<b>Ārpus birojas:</b>"
+
+#~ msgid "ok_button"
+#~ msgstr "OK_poga"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "<b>Permissions</b>"
+#~ msgstr "<b> Tiesības</b>"
+
+#~ msgid "Connecting..."
+#~ msgstr "Pievienojos..."
+
+#~ msgid "Ximian Connector for Microsoft Exchange Setup Tool"
+#~ msgstr "Ximian savienotājs priekš Microsoft Exchange uzstādīšanas darba rīka"
