@@ -798,9 +798,7 @@ camel_exchange_folder_init (CamelExchangeFolder *exchange_folder)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exchange_folder);
 
-	folder->folder_flags =
-		CAMEL_FOLDER_HAS_SUMMARY_CAPABILITY |
-		CAMEL_FOLDER_HAS_SEARCH_CAPABILITY;
+	folder->folder_flags = CAMEL_FOLDER_HAS_SUMMARY_CAPABILITY;
 	folder->permanent_flags =
 		CAMEL_EXCHANGE_SERVER_FLAGS | CAMEL_MESSAGE_FLAGGED |
 		CAMEL_MESSAGE_JUNK | CAMEL_MESSAGE_USER;
