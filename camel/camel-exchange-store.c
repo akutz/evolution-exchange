@@ -887,7 +887,7 @@ camel_exchange_store_connected (CamelExchangeStore *store,
 
 	if (status != CAMEL_SERVICE_CONNECTED &&
 	    camel_session_get_online (session) &&
-	    !camel_service_connect_sync (service, error)) {
+	    !camel_service_connect_sync (service, cancellable, error)) {
 		return FALSE;
 	}
 
