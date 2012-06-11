@@ -12,6 +12,7 @@ G_BEGIN_DECLS
 
 typedef struct {
 	gchar *host;
+	guint16 port;
 	CamelExchangeSettings *settings;
 	gboolean is_ntlm;
 } ExchangeParams;

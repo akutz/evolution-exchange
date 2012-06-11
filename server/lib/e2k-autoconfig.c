@@ -1537,6 +1537,7 @@ validate (const gchar *owa_url,
 	if (*result == E2K_AUTOCONFIG_OK) {
 		const gchar *mailbox;
 		gchar *owa_path;
+		guint port;
 		gint len;
 
 		*result = e2k_autoconfig_check_global_catalog (ac, &op);
@@ -1545,6 +1546,7 @@ validate (const gchar *owa_url,
 		/* find mailbox and owa_path values */
 		euri = e2k_uri_new (ac->home_uri);
 		path = g_strdup (euri->path + 1);
+		port = euri->port;
 		e2k_uri_free (euri);
 
 		/* no slash at the end of path */
@@ -1588,6 +1590,7 @@ validate (const gchar *owa_url,
 		g_free (path);
 
 		exchange_params->host = g_strdup (ac->pf_server);
+		exchange_params->port = port;
 		if (ac->gc_server != NULL)
 			camel_exchange_settings_set_gc_server_name (
 				exchange_params->settings, ac->gc_server);
