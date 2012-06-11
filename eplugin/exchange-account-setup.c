@@ -450,6 +450,7 @@ owa_authenticate_user (GtkWidget *button,
 
 	exchange_params = g_new0 (ExchangeParams, 1);
 	exchange_params->host = NULL;
+	exchange_params->port = 0;
 	exchange_params->is_ntlm = TRUE;
 
 	settings = target_account->storage_settings;
@@ -505,6 +506,9 @@ owa_authenticate_user (GtkWidget *button,
 
 	camel_network_settings_set_host (
 		network_settings, valid ? exchange_params->host : "");
+
+	camel_network_settings_set_port (
+		network_settings, valid ? exchange_params->port : 0);
 
 	camel_network_settings_set_user (
 		network_settings, valid ? dup_user : "");
