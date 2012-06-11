@@ -26,6 +26,7 @@
 #include <string.h>
 #include <glib/gi18n-lib.h>
 
+#include "camel-exchange-settings.h"
 #include "camel-exchange-transport.h"
 #include "camel-exchange-utils.h"
 
@@ -122,13 +123,20 @@ exchange_transport_send_to_sync (CamelTransport *transport,
 	if (store)
 		g_object_unref (CAMEL_OBJECT (store));
 
+	if (!success && error && !*error)
+		g_set_error_literal (error, CAMEL_ERROR, CAMEL_ERROR_GENERIC, _("Could not send message"));
+
 	return success;
 }
 
 static void
 camel_exchange_transport_class_init (CamelExchangeTransportClass *class)
 {
+	CamelServiceClass *service_class;
 	CamelTransportClass *transport_class;
+
+	service_class = CAMEL_SERVICE_CLASS (class);
+	service_class->settings_type = CAMEL_TYPE_EXCHANGE_SETTINGS;
 
 	transport_class = CAMEL_TRANSPORT_CLASS (class);
 	transport_class->send_to_sync = exchange_transport_send_to_sync;

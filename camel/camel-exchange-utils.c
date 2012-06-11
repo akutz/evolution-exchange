@@ -248,6 +248,14 @@ get_data_for_service (CamelService *service)
 
 	g_slist_free (accounts);
 
+	if (!res) {
+		g_warn_if_reached ();
+
+		/* there is configured only one account, thus use that ExchangeData */
+		if (edies && !edies->next)
+			res = edies->data;
+	}
+
 	G_UNLOCK (edies);
 
 	return res;
